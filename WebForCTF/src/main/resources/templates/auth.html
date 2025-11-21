@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth - CTF Platform</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="body-auth">
+    <div class="background"></div>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <a th:href="@{/}" style="text-decoration: none; color: inherit;">
+                    <h1>CTF<span>PLATFORM</span></h1>
+                </a>
+            </div>
+<nav class="nav">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/category/pwn" class="nav-link">PWN</a>
+    <a href="/category/web" class="nav-link">WEB</a>
+    <a href="/category/crypto" class="nav-link">Crypto</a>
+    <a href="/users" class="nav-link">Users</a>
+    <a href="/auth" class="nav-link login-btn">Login</a>
+</nav>
+        </header>
+
+        
+        <section class="auth-section">
+            <div class="auth-container">
+                <div class="auth-header">
+                    <div class="auth-icon">
+                        <span th:text="${isLogin} ? '🔐' : '🚀'"></span>
+                    </div>
+                    <h1 th:text="${isLogin} ? 'Добро пожаловать' : 'Присоединяйтесь'"></h1>
+                    <p th:text="${isLogin} ? 'Войдите в свою учетную запись' : 'Создайте новую учетную запись'"></p>
+                </div>
+
+                
+                <div th:if="${error}" class="error-message">
+                    <span class="error-icon">⚠️</span>
+                    <span th:text="${error}"></span>
+                </div>
+
+                
+                <form th:if="${isLogin}" th:action="@{/login}" method="post" class="auth-form">
+                    <div class="input-group">
+                        <div class="input-icon">👤</div>
+                        <input type="text" id="username" name="username" required placeholder="Имя пользователя">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-icon">🔒</div>
+                        <input type="password" id="password" name="password" required placeholder="Пароль">
+                    </div>
+                    <button type="submit" class="auth-btn primary">
+                        <span class="btn-icon">⚡</span>
+                        Войти в систему
+                    </button>
+                    <div class="auth-switch">
+                        <span>Новый пользователь? </span>
+                        <a th:href="@{/auth?register}">Создать аккаунт</a>
+                    </div>
+                </form>
+
+                
+                <form th:unless="${isLogin}" th:action="@{/register}" method="post" class="auth-form">
+                    <div class="input-group">
+                        <div class="input-icon">👤</div>
+                        <input type="text" id="reg-username" name="username" required placeholder="Имя пользователя" minlength="3">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-icon">📧</div>
+                        <input type="email" id="reg-email" name="email" required placeholder="Email адрес">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-icon">🔒</div>
+                        <input type="password" id="reg-password" name="password" required placeholder="Пароль" minlength="6">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-icon">✅</div>
+                        <input type="password" id="reg-confirm" required placeholder="Подтвердите пароль" minlength="6">
+                    </div>
+                    <button type="submit" class="auth-btn primary">
+                        <span class="btn-icon">🎯</span>
+                        Создать аккаунт
+                    </button>
+                    <div class="auth-switch">
+                        <span>Уже есть аккаунт? </span>
+                        <a th:href="@{/auth}">Войти сейчас</a>
+                    </div>
+                </form>
+
+                <div class="auth-footer">
+                    <div class="divider">
+                        <span>или продолжите через</span>
+                    </div>
+                    <div class="social-buttons">
+                        <button class="social-btn github">
+                            <span class="social-icon">🐙</span>
+                            GitHub
+                        </button>
+                        <button class="social-btn google">
+                            <span class="social-icon">🔍</span>
+                            Google
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+    <script src="/static/js/validation.js"></script>
+</body>
+</html>

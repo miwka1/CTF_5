@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Mygiv@ra999
+      POSTGRES_DB: ctf
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - appnet
+
+  backend:
+    build: ./ServerForCTF
+    container_name: spring-backend
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/ctf
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: Mygiv@ra999
+    ports:
+      - "8081:8080"  # локально backend на http://localhost:8081
+    networks:
+      - appnet
+    restart: unless-stopped
+
+  frontend:
+    build: ./WebForCTF
+    container_name: ctf-frontend
+    depends_on:
+      - backend
+    environment:
+      BACKEND_URL: http://backend:8080  # внутри Docker сети
+    ports:
+      - "3000:3000"  # локально фронт на http://localhost:3000
+    networks:
+      - appnet
+    restart: unless-stopped
+
+networks:
+  appnet:
+
+volumes:
+  postgres-data:

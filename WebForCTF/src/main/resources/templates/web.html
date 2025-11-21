@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Challenges - CTF Platform</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="body-web">
+    <div class="background"></div>
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <a th:href="@{/}" style="text-decoration: none; color: inherit;">
+                    <h1>CTF<span>PLATFORM</span></h1>
+                </a>
+            </div>
+            <nav class="nav">
+                <a th:href="@{/}" class="nav-link">Home</a>
+                <a th:href="@{/category/pwn}" class="nav-link">PWN</a>
+                <a th:href="@{/category/web}" class="nav-link active">Web</a>
+                <a th:href="@{/category/crypto}" class="nav-link">Crypto</a>
+                <a th:href="@{/users}" class="nav-link">Users</a>
+                <th:block th:if="${currentUser == null}">
+                    <a th:href="@{/auth}" class="nav-link login-btn">Login</a>
+                </th:block>
+                <th:block th:if="${currentUser != null}">
+                    <a th:href="@{/logout}" class="nav-link login-btn">Logout</a>
+                </th:block>
+            </nav>
+        </header>
+
+
+        <section class="category-header web-bg">
+            <div class="category-info">
+                <div class="category-icon-large">🌐</div>
+                <h1>Web Challenges</h1>
+                <p>Web application security, SQL injection, XSS, and more</p>
+            </div>
+        </section>
+
+        <section class="tasks-section">
+            <div class="tasks-container">
+                <div class="task-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="easy">Easy</button>
+                    <button class="filter-btn" data-filter="medium">Medium</button>
+                    <button class="filter-btn" data-filter="hard">Hard</button>
+                </div>
+
+                <div class="tasks-list">
+                    <div class="no-tasks">
+                        <h3>Задачи появятся здесь скоро!</h3>
+                        <p>Администратор добавит Web задачи в ближайшее время.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>&copy; 2024 CTF Platform. Web challenges coming soon.</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
