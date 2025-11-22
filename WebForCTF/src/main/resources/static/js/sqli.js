@@ -2,11 +2,28 @@
  * SQL Injection Challenge JavaScript
  */
 
+let challengePoints = 100; // Очки за задание по умолчанию
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('SQL Injection Challenge initialized');
     initializeLoginForm();
     initializeFlagCheckModal();
+    loadChallengePoints();
 });
+
+function loadChallengePoints() {
+    // Загружаем информацию о задании, включая очки
+    fetch('/challenges/sqli/info')
+        .then(response => response.json())
+        .then(data => {
+            if (data.points) {
+                challengePoints = data.points;
+            }
+        })
+        .catch(error => {
+            console.log('Using default points:', challengePoints);
+        });
+}
 
 function initializeLoginForm() {
     const loginForm = document.getElementById('loginForm');
@@ -94,7 +111,7 @@ function validateFlag() {
     })
     .then(data => {
         if (data.success) {
-            resultDiv.innerHTML = '✅ Правильно! Флаг принят.';
+            resultDiv.innerHTML = `✅ Правильно! Флаг принят.<br><span class="points-badge">+${challengePoints} pts</span>`;
             resultDiv.className = 'flag-check-result success';
             celebrateFlagSuccess();
         } else {
@@ -139,9 +156,6 @@ function handleLogin() {
                     🎉 Задание выполнено!<br>
                     <strong>Флаг:</strong> 
                     <div class="flag-text">${data.flag}</div>
-                    <small style="color: #888; margin-top: 10px; display: block;">
-                        Скопируйте флаг и проверьте его через кнопку "Проверить флаг"
-                    </small>
                 </div>
             `;
             celebrateSuccess();
@@ -161,10 +175,10 @@ function celebrateFlagSuccess() {
     // Анимация успеха для флага
     createConfetti();
     
-    // Автоматически закрываем окно через 2 секунды
+    // Автоматически закрываем окно через 3 секунды
     setTimeout(() => {
         closeFlagCheckModal();
-    }, 2000);
+    }, 3000);
 }
 
 function celebrateSuccess() {

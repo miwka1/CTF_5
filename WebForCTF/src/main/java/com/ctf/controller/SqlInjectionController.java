@@ -26,6 +26,19 @@ public class SqlInjectionController {
         return "sqli";
     }
 
+    @GetMapping("/info")
+    @ResponseBody
+    public String getChallengeInfo() {
+        return challengeService.getChallengeByTitle("SQL Injection Basic")
+                .map(challenge -> String.format(
+                        "{\"title\": \"%s\", \"points\": %d, \"difficulty\": \"%s\"}",
+                        challenge.getTitle(),
+                        challenge.getPoints(),
+                        challenge.getDifficulty()
+                ))
+                .orElse("{\"title\": \"SQL Injection Basic\", \"points\": 100, \"difficulty\": \"easy\"}");
+    }
+
     @PostMapping("/login")
     @ResponseBody
     public String vulnerableLogin(@RequestParam String username,
