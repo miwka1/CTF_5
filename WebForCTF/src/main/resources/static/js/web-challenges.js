@@ -179,7 +179,6 @@ function showHint(hintId) {
     }
 }
 
-// Функции для генерации контента заданий
 function getSQLiChallenge() {
     return `
         <h2>SQL Injection Challenge</h2>
@@ -189,10 +188,6 @@ function getSQLiChallenge() {
             <iframe src="/challenges/sqli" style="width:100%; height:100%; border:none;"></iframe>
         </div>
         
-        <div class="challenge-controls">
-            <input type="text" class="flag-input" id="sqliFlag" placeholder="Введите флаг">
-            <button class="challenge-btn" onclick="checkFlag('sqli')">Submit Flag</button>
-        </div>
         <div id="sqliResult"></div>
     `;
 }

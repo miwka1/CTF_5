@@ -18,13 +18,25 @@
             
             <div id="message" class="message"></div>
             
-            <div id="flagSection" class="flag-section">
-                <div class="flag-validation">
-                    <input type="text" id="flagInput" placeholder="Введите флаг для проверки">
-                    <button onclick="validateFlag()">Проверить флаг</button>
-                </div>
-                <div id="validationResult" class="message"></div>
+            <!-- Кнопка для открытия окна проверки флага -->
+            <div class="flag-check-section">
+                <button type="button" class="flag-check-btn" onclick="openFlagCheckModal()">
+                    Проверить флаг
+                </button>
             </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для проверки флага -->
+    <div id="flagCheckModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeFlagCheckModal()">&times;</span>
+            <h3>🔍 Проверка флага</h3>
+            <div class="flag-check-form">
+                <input type="text" id="flagInput" placeholder="Введите флаг для проверки">
+                <button type="button" onclick="validateFlag()">Проверить</button>
+            </div>
+            <div id="flagCheckResult" class="flag-check-result"></div>
         </div>
     </div>
 

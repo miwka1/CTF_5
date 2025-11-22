@@ -8,6 +8,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    /* Запрет выделения текста по умолчанию */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .challenge-container {
@@ -25,6 +30,11 @@
     border-radius: 15px;
     background: rgba(0, 255, 136, 0.05);
     box-sizing: border-box;
+    /* Запрет выделения текста внутри формы */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .login-form h2 {
@@ -32,6 +42,11 @@
     color: #00ff88;
     margin-bottom: 15px;
     font-size: 24px;
+    /* Запрет выделения заголовка */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .login-form p {
@@ -39,6 +54,11 @@
     margin-bottom: 25px;
     color: #ccc;
     font-size: 16px;
+    /* Запрет выделения текста */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .login-form input {
@@ -51,6 +71,11 @@
     color: #fff;
     box-sizing: border-box;
     font-size: 16px;
+    /* Разрешаем выделение в полях ввода */
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
 .login-form input:focus {
@@ -71,6 +96,11 @@
     margin: 15px 0;
     transition: all 0.3s;
     font-size: 16px;
+    /* Запрет выделения текста кнопки */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .login-form button:hover {
@@ -84,6 +114,11 @@
     border-radius: 8px;
     text-align: center;
     font-size: 14px;
+    /* Запрет выделения сообщений по умолчанию */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .message .success {
@@ -98,27 +133,160 @@
     border: 1px solid #ff4444;
 }
 
-.flag-section {
+/* Секция для кнопки проверки флага */
+.flag-check-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.flag-check-btn {
+    width: auto !important;
+    padding: 10px 20px !important;
+    background: rgba(0, 255, 136, 0.2) !important;
+    color: #00ff88 !important;
+    border: 1px solid #00ff88 !important;
+    font-size: 14px !important;
+}
+
+.flag-check-btn:hover {
+    background: rgba(0, 255, 136, 0.3) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* Специальный класс для флага, который можно выделять */
+.flag-text {
+    /* Разрешаем выделение флага */
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    cursor: text;
+    background: rgba(0, 255, 136, 0.1);
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin: 10px 0;
+    border: 1px dashed #00ff88;
+    font-family: monospace;
+    font-weight: bold;
+}
+
+/* Стили для модального окна проверки флага */
+.modal {
     display: none;
-    margin-top: 25px;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
 }
 
-.flag-validation {
+.modal-content {
+    background: #111;
+    margin: 10% auto;
+    padding: 30px;
+    border: 2px solid #00ff88;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.modal-content h3 {
+    color: #00ff88;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.close {
+    color: #00ff88;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.close:hover {
+    color: #00cc6a;
+}
+
+.flag-check-form {
     display: flex;
-    gap: 12px;
-    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-.flag-validation input {
+.flag-check-form input {
     flex: 1;
-    margin: 0;
+    padding: 12px;
+    background: #222;
+    border: 1px solid #00ff88;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
 }
 
-.flag-validation button {
-    width: auto;
-    min-width: 150px;
-    margin: 0;
+.flag-check-form input:focus {
+    outline: none;
+    border-color: #00cc6a;
+    box-shadow: 0 0 8px rgba(0, 255, 136, 0.5);
+}
+
+.flag-check-form button {
+    padding: 12px 20px;
+    background: #00ff88;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
     white-space: nowrap;
+    transition: all 0.3s;
+}
+
+.flag-check-form button:hover {
+    background: #00cc6a;
+    transform: translateY(-2px);
+}
+
+.flag-check-result {
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    min-height: 20px;
+}
+
+.flag-check-result.success {
+    background: rgba(0, 255, 136, 0.2);
+    color: #00ff88;
+    border: 1px solid #00ff88;
+}
+
+.flag-check-result.error {
+    background: rgba(255, 0, 0, 0.2);
+    color: #ff4444;
+    border: 1px solid #ff4444;
 }
 
 /* Анимации */
@@ -137,10 +305,6 @@
     animation: fadeIn 0.5s ease-out;
 }
 
-.flag-section {
-    animation: fadeIn 0.5s ease-out;
-}
-
 /* Адаптивность */
 @media (max-width: 600px) {
     .challenge-container {
@@ -151,12 +315,13 @@
         padding: 30px 25px;
     }
     
-    .flag-validation {
+    .flag-check-form {
         flex-direction: column;
-        gap: 10px;
     }
     
-    .flag-validation button {
-        width: 100%;
+    .modal-content {
+        margin: 20% auto;
+        width: 85%;
+        padding: 20px;
     }
 }
