@@ -10,17 +10,17 @@ body {
     flex-direction: column;
 }
 
-/* Верхний футер - УВЕЛИЧЕННЫЙ с большими отступами */
+/* Заголовок категории - УВЕЛИЧИВАЕМ высоту */
 .category-header {
     text-align: center;
-    padding: 10rem 0 8rem 0; /* Увеличил вертикальные отступы */
-    margin-bottom: 3rem; /* Увеличил отступ снизу */
+    padding: 12rem 0 10rem 0; /* Увеличиваем отступы */
+    margin-bottom: 2rem;
     background: rgba(10, 10, 10, 0.7);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
     position: relative;
     overflow: hidden;
-    min-height: 400px; /* Минимальная высота */
+    min-height: 500px; /* Увеличиваем минимальную высоту */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -41,39 +41,39 @@ body {
 }
 
 .category-info {
-    max-width: 700px; /* Увеличил максимальную ширину */
+    max-width: 700px;
     margin: 0 auto;
-    padding: 0 2rem; /* Добавил боковые отступы */
+    padding: 0 2rem;
 }
 
 .category-icon-large {
-    font-size: 8rem; /* Увеличил иконку */
-    margin-bottom: 3rem; /* Увеличил отступ */
+    font-size: 8rem;
+    margin-bottom: 3rem;
     filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.5));
     animation: float 3s ease-in-out infinite;
 }
 
 .category-header h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 4.5rem; /* Увеличил заголовок */
+    font-size: 4.5rem;
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 2rem; /* Увеличил отступ */
+    margin-bottom: 2rem;
     text-shadow: 0 0 40px rgba(0, 255, 136, 0.4);
     line-height: 1.1;
 }
 
 .category-header p {
-    font-size: 1.5rem; /* Увеличил текст */
+    font-size: 1.5rem;
     color: var(--text-secondary);
     line-height: 1.8;
-    max-width: 600px; /* Увеличил ширину */
+    max-width: 600px;
     margin: 0 auto;
 }
 
 .users-section {
-    padding: 6rem 0; /* Увеличил отступы */
+    padding: 8rem 0; /* Увеличиваем отступы */
     flex: 1;
     display: flex;
     align-items: center;
@@ -83,33 +83,33 @@ body {
 /* Стили для пустого списка */
 .no-users {
     text-align: center;
-    padding: 5rem 4rem; /* Увеличил отступы */
+    padding: 6rem 4rem; /* Увеличиваем отступы */
     background: rgba(26, 26, 26, 0.5);
-    border-radius: 25px; /* Увеличил радиус */
+    border-radius: 25px;
     border: 2px dashed var(--border-color);
-    max-width: 600px; /* Увеличил ширину */
+    max-width: 600px;
     width: 100%;
-    margin: 2rem 0; /* Добавил отступы */
+    margin: 2rem 0;
 }
 
 .no-users-icon {
-    font-size: 5rem; /* Увеличил иконку */
-    margin-bottom: 2rem; /* Увеличил отступ */
+    font-size: 5rem;
+    margin-bottom: 2rem;
     filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.4));
     animation: float 3s ease-in-out infinite;
 }
 
 .no-users h3 {
     color: var(--text-primary);
-    margin-bottom: 1.5rem; /* Увеличил отступ */
+    margin-bottom: 1.5rem;
     font-family: 'Orbitron', sans-serif;
-    font-size: 2rem; /* Увеличил шрифт */
+    font-size: 2rem;
 }
 
 .no-users p {
     color: var(--text-secondary);
-    margin-bottom: 2.5rem; /* Увеличил отступ */
-    font-size: 1.2rem; /* Увеличил шрифт */
+    margin-bottom: 2.5rem;
+    font-size: 1.2rem;
     line-height: 1.7;
 }
 
@@ -124,7 +124,7 @@ body {
 }
 
 .no-users .cta-btn {
-    margin-top: 1.5rem; /* Увеличил отступ */
+    margin-top: 1.5rem;
 }
 
 /* Стили для кнопок */
@@ -132,12 +132,12 @@ body {
     background: rgba(255, 255, 255, 0.1);
     color: var(--text-primary);
     border: 1px solid var(--border-color);
-    padding: 1rem 2.5rem; /* Увеличил отступы кнопки */
-    border-radius: 10px; /* Увеличил радиус */
+    padding: 1rem 2.5rem;
+    border-radius: 10px;
     text-decoration: none;
     transition: all 0.3s ease;
     display: inline-block;
-    font-size: 1.1rem; /* Увеличил шрифт */
+    font-size: 1.1rem;
 }
 
 .cta-btn.secondary:hover {
@@ -147,42 +147,9 @@ body {
     text-decoration: none;
 }
 
-/* Нижний футер - УВЕЛИЧЕННЫЙ с большими отступами */
-.footer {
-    text-align: center;
-    padding: 4rem 0; /* Увеличил вертикальные отступы */
-    border-top: 1px solid var(--border-color);
-    margin-top: 4rem; /* Увеличил отступ сверху */
-    color: var(--text-secondary);
-    background: rgba(10, 10, 10, 0.95);
-    backdrop-filter: blur(15px);
-    position: relative;
-    min-height: 200px; /* Минимальная высота */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg,
-        transparent 0%,
-        rgba(0, 255, 136, 0.03) 50%,
-        transparent 100%);
-}
-
-.footer p {
-    font-size: 1.1rem; /* Увеличил шрифт */
-    margin: 0;
-    padding: 0 3rem; /* Увеличил боковые отступы */
-    position: relative;
-    z-index: 1;
-    line-height: 1.6;
+/* УВЕЛИЧИВАЕМ отступ перед футером */
+.users-section + .footer {
+    margin-top: 6rem; /* Большой отступ перед футером */
 }
 
 /* Анимация для иконки */
@@ -191,15 +158,15 @@ body {
         transform: translateY(0px);
     }
     50% {
-        transform: translateY(-15px); /* Увеличил амплитуду */
+        transform: translateY(-15px);
     }
 }
 
 /* АДАПТИВНОСТЬ */
 @media (max-width: 768px) {
     .category-header {
-        padding: 8rem 0 6rem 0;
-        min-height: 350px;
+        padding: 10rem 0 8rem 0;
+        min-height: 450px;
     }
 
     .category-header h1 {
@@ -215,8 +182,12 @@ body {
         font-size: 1.3rem;
     }
 
+    .users-section {
+        padding: 6rem 0;
+    }
+
     .no-users {
-        padding: 4rem 3rem;
+        padding: 5rem 3rem;
         margin: 0 1.5rem;
     }
 
@@ -228,20 +199,15 @@ body {
         font-size: 1.8rem;
     }
 
-    .footer {
-        padding: 3rem 0;
-        min-height: 150px;
-    }
-
-    .footer p {
-        font-size: 1rem;
+    .users-section + .footer {
+        margin-top: 4rem;
     }
 }
 
 @media (max-width: 480px) {
     .category-header {
-        padding: 6rem 0 4rem 0;
-        min-height: 300px;
+        padding: 8rem 0 6rem 0;
+        min-height: 400px;
     }
 
     .category-header h1 {
@@ -257,8 +223,12 @@ body {
         font-size: 1.1rem;
     }
 
+    .users-section {
+        padding: 4rem 0;
+    }
+
     .no-users {
-        padding: 3rem 2rem;
+        padding: 4rem 2rem;
     }
 
     .no-users-icon {
@@ -273,13 +243,7 @@ body {
         font-size: 1.1rem;
     }
 
-    .footer {
-        padding: 2.5rem 0;
-        min-height: 120px;
-    }
-
-    .footer p {
-        font-size: 0.9rem;
-        padding: 0 2rem;
+    .users-section + .footer {
+        margin-top: 3rem;
     }
 }

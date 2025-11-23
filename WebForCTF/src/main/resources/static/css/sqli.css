@@ -286,16 +286,6 @@
     text-align: center;
 }
 
-/* Футер прикрепленный к низу */
-.footer-sqli {
-    margin-top: auto;
-    padding: 20px 0;
-    text-align: center;
-    border-top: 1px solid rgba(0, 255, 136, 0.2);
-    background: rgba(0, 0, 0, 0.5);
-    color: #cccccc;
-}
-
 /* Анимации */
 @keyframes fadeIn {
     from {
