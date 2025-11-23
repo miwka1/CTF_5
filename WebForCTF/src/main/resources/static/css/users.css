@@ -10,17 +10,15 @@ body {
     flex-direction: column;
 }
 
-/* Заголовок категории - УВЕЛИЧИВАЕМ высоту */
 .category-header {
     text-align: center;
-    padding: 12rem 0 10rem 0; /* Увеличиваем отступы */
+    padding: 4rem 0 3rem 0;
     margin-bottom: 2rem;
     background: rgba(10, 10, 10, 0.7);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color);
     position: relative;
     overflow: hidden;
-    min-height: 500px; /* Увеличиваем минимальную высоту */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,70 +45,69 @@ body {
 }
 
 .category-icon-large {
-    font-size: 8rem;
-    margin-bottom: 3rem;
-    filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.5));
+    font-size: 5rem;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.5));
     animation: float 3s ease-in-out infinite;
 }
 
 .category-header h1 {
     font-family: 'Orbitron', sans-serif;
-    font-size: 4.5rem;
+    font-size: 3rem;
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 2rem;
-    text-shadow: 0 0 40px rgba(0, 255, 136, 0.4);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
     line-height: 1.1;
 }
 
 .category-header p {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: var(--text-secondary);
-    line-height: 1.8;
+    line-height: 1.6;
     max-width: 600px;
     margin: 0 auto;
 }
 
 .users-section {
-    padding: 8rem 0; /* Увеличиваем отступы */
+    padding: 3rem 0;
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* Стили для пустого списка */
 .no-users {
     text-align: center;
-    padding: 6rem 4rem; /* Увеличиваем отступы */
+    padding: 3rem 2rem;
     background: rgba(26, 26, 26, 0.5);
-    border-radius: 25px;
+    border-radius: 15px;
     border: 2px dashed var(--border-color);
-    max-width: 600px;
+    max-width: 500px;
     width: 100%;
-    margin: 2rem 0;
+    margin: 1rem 0;
 }
 
 .no-users-icon {
-    font-size: 5rem;
-    margin-bottom: 2rem;
-    filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.4));
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.4));
     animation: float 3s ease-in-out infinite;
 }
 
 .no-users h3 {
     color: var(--text-primary);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     font-family: 'Orbitron', sans-serif;
-    font-size: 2rem;
+    font-size: 1.5rem;
 }
 
 .no-users p {
     color: var(--text-secondary);
-    margin-bottom: 2.5rem;
-    font-size: 1.2rem;
-    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.5;
 }
 
 .no-users a {
@@ -124,20 +121,19 @@ body {
 }
 
 .no-users .cta-btn {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
 }
 
-/* Стили для кнопок */
 .cta-btn.secondary {
     background: rgba(255, 255, 255, 0.1);
     color: var(--text-primary);
     border: 1px solid var(--border-color);
-    padding: 1rem 2.5rem;
-    border-radius: 10px;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
     text-decoration: none;
     transition: all 0.3s ease;
     display: inline-block;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
 .cta-btn.secondary:hover {
@@ -147,103 +143,87 @@ body {
     text-decoration: none;
 }
 
-/* УВЕЛИЧИВАЕМ отступ перед футером */
-.users-section + .footer {
-    margin-top: 6rem; /* Большой отступ перед футером */
-}
-
-/* Анимация для иконки */
 @keyframes float {
     0%, 100% {
         transform: translateY(0px);
     }
     50% {
-        transform: translateY(-15px);
+        transform: translateY(-10px);
     }
 }
 
 /* АДАПТИВНОСТЬ */
 @media (max-width: 768px) {
     .category-header {
-        padding: 10rem 0 8rem 0;
-        min-height: 450px;
+        padding: 3rem 0 2rem 0;
     }
 
     .category-header h1 {
-        font-size: 3.5rem;
+        font-size: 2.5rem;
     }
 
     .category-icon-large {
-        font-size: 6rem;
-        margin-bottom: 2.5rem;
+        font-size: 4rem;
+        margin-bottom: 1.5rem;
     }
 
     .category-header p {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
     }
 
     .users-section {
-        padding: 6rem 0;
+        padding: 2rem 0;
     }
 
     .no-users {
-        padding: 5rem 3rem;
-        margin: 0 1.5rem;
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
     }
 
     .no-users-icon {
-        font-size: 4rem;
+        font-size: 2.5rem;
     }
 
     .no-users h3 {
-        font-size: 1.8rem;
-    }
-
-    .users-section + .footer {
-        margin-top: 4rem;
+        font-size: 1.3rem;
     }
 }
 
 @media (max-width: 480px) {
     .category-header {
-        padding: 8rem 0 6rem 0;
-        min-height: 400px;
+        padding: 2rem 0 1.5rem 0;
     }
 
     .category-header h1 {
-        font-size: 2.8rem;
+        font-size: 2rem;
     }
 
     .category-icon-large {
-        font-size: 5rem;
-        margin-bottom: 2rem;
+        font-size: 3rem;
+        margin-bottom: 1rem;
     }
 
     .category-header p {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
 
     .users-section {
-        padding: 4rem 0;
+        padding: 1.5rem 0;
     }
 
     .no-users {
-        padding: 4rem 2rem;
+        padding: 1.5rem 1rem;
     }
 
     .no-users-icon {
-        font-size: 3.5rem;
+        font-size: 2rem;
     }
 
     .no-users h3 {
-        font-size: 1.6rem;
+        font-size: 1.2rem;
     }
 
     .no-users p {
-        font-size: 1.1rem;
-    }
-
-    .users-section + .footer {
-        margin-top: 3rem;
+        font-size: 0.9rem;
     }
 }

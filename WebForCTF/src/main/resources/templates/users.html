@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users - CTF Platform</title>
     <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/users.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body class="body-users">
@@ -39,26 +38,8 @@
         </nav>
     </header>
 
-    <!-- Заголовок страницы (это НЕ футер) -->
-    <section class="category-header">
-        <div class="category-info">
-            <div class="category-icon-large">👥</div>
-            <h1>Users</h1>
-            <p>Community of cybersecurity enthusiasts</p>
-        </div>
-    </section>
+    <!-- Пустая страница -->
 
-    <!-- Секция с пустым списком пользователей -->
-    <section class="users-section">
-        <div class="no-users">
-            <div class="no-users-icon">👤</div>
-            <h3>No users found</h3>
-            <p>Be the first to <a th:href="@{/auth?register}">register</a> and join our community!</p>
-            <a th:href="@{/}" class="cta-btn secondary">Back to Home</a>
-        </div>
-    </section>
-
-    <!-- НИЖНИЙ ФУТЕР (должен быть таким же как на других страницах) -->
     <footer class="footer">
         <p>&copy; 2025 CTF Platform. Built for cybersecurity enthusiasts. | Secure • Learn • Exploit</p>
     </footer>
