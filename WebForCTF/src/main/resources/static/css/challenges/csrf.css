@@ -118,3 +118,40 @@
         margin: 0 1rem;
     }
 }
+
+/* Стили для управления заданием */
+.challenge-management {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.management-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.management-buttons .cta-btn {
+    min-width: 160px;
+    padding: 0.8rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.management-buttons .cta-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Адаптивность для кнопок управления */
+@media (max-width: 768px) {
+    .management-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .management-buttons .cta-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}

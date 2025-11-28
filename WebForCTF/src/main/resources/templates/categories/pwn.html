@@ -3,11 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PWN Challenges - CTF Platform</title>
+    <title>Pwn Challenges - CTF Platform</title>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/components.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/pages/categories.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body class="body-pwn">
 <div class="background"></div>
@@ -23,19 +28,116 @@
 <!-- Main Content -->
 <div class="container">
     <section class="category-header">
-        <h1 class="section-title">💥 PWN Challenges</h1>
+        <h1 class="section-title">💥 Pwn Challenges</h1>
         <p class="category-subtitle">Binary exploitation and reverse engineering</p>
-    </section>
 
-    <div class="coming-soon card">
-        <div class="coming-soon-icon">🚧</div>
-        <h2>Coming Soon</h2>
-        <p>PWN challenges are currently under development. Check back later for binary exploitation, reverse engineering, and memory corruption challenges.</p>
+        <!-- Progress Section -->
         <div class="progress-info">
             <div class="progress-bar">
-                <div class="progress-fill" style="width: 30%"></div>
+                <div class="progress-fill" style="width: 25%"></div>
             </div>
-            <span class="progress-text">30% Complete</span>
+            <div class="progress-text">1 of 4 challenges completed</div>
+        </div>
+    </section>
+
+    <div class="challenges-grid">
+        <!-- Buffer Overflow Challenge -->
+        <div class="challenge-card">
+            <div class="challenge-icon">💣</div>
+            <h3>Buffer Overflow</h3>
+            <p>Exploit buffer overflow vulnerabilities to gain control of program execution.</p>
+            <div class="challenge-meta">
+                <span class="badge medium">Medium</span>
+                <span class="points">200 pts</span>
+            </div>
+            <div class="challenge-actions">
+                <button class="cta-btn secondary small">
+                    💡 Подсказка
+                </button>
+                <button class="cta-btn primary small">
+                    🏴‍☠️ Флаг
+                </button>
+            </div>
+        </div>
+
+        <!-- Format String Challenge -->
+        <div class="challenge-card">
+            <div class="challenge-icon">📝</div>
+            <h3>Format String</h3>
+            <p>Exploit format string vulnerabilities to read and write memory.</p>
+            <div class="challenge-meta">
+                <span class="badge hard">Hard</span>
+                <span class="points">300 pts</span>
+            </div>
+            <div class="challenge-actions">
+                <button class="cta-btn secondary small">
+                    💡 Подсказка
+                </button>
+                <button class="cta-btn primary small">
+                    🏴‍☠️ Флаг
+                </button>
+            </div>
+        </div>
+
+        <!-- ROP Challenge -->
+        <div class="challenge-card">
+            <div class="challenge-icon">🔄</div>
+            <h3>ROP Chain</h3>
+            <p>Build Return Oriented Programming chains to bypass DEP.</p>
+            <div class="challenge-meta">
+                <span class="badge hard">Hard</span>
+                <span class="points">350 pts</span>
+            </div>
+            <div class="challenge-actions">
+                <button class="cta-btn secondary small">
+                    💡 Подсказка
+                </button>
+                <button class="cta-btn primary small">
+                    🏴‍☠️ Флаг
+                </button>
+            </div>
+        </div>
+
+        <!-- Shellcode Challenge -->
+        <div class="challenge-card">
+            <div class="challenge-icon">🐚</div>
+            <h3>Shellcode Injection</h3>
+            <p>Write and execute custom shellcode to gain shell access.</p>
+            <div class="challenge-meta">
+                <span class="badge medium">Medium</span>
+                <span class="points">250 pts</span>
+            </div>
+            <div class="challenge-actions">
+                <button class="cta-btn secondary small">
+                    💡 Подсказка
+                </button>
+                <button class="cta-btn primary small">
+                    🏴‍☠️ Флаг
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Coming Soon Section -->
+    <div class="coming-soon">
+        <div class="coming-soon-icon">🚧</div>
+        <h2>More Challenges Coming Soon!</h2>
+        <p>We're working on adding more exciting pwn challenges to test your binary exploitation skills.</p>
+
+        <!-- Progress Stats -->
+        <div class="progress-stats">
+            <div class="progress-stat">
+                <div class="progress-number">4</div>
+                <div class="progress-label">Total</div>
+            </div>
+            <div class="progress-stat">
+                <div class="progress-number">1</div>
+                <div class="progress-label">Completed</div>
+            </div>
+            <div class="progress-stat">
+                <div class="progress-number">3</div>
+                <div class="progress-label">Remaining</div>
+            </div>
         </div>
     </div>
 </div>
@@ -43,6 +145,8 @@
 <!-- Footer -->
 <div th:replace="~{fragments/footer :: footer}"></div>
 
+<!-- JavaScript -->
+<script src="/js/utils.js"></script>
 <script src="/js/main.js"></script>
 </body>
 </html>

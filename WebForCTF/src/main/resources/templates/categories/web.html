@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Security Challenges - CTF Platform</title>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/components.css">
     <link rel="stylesheet" href="/css/layout.css">
     <link rel="stylesheet" href="/css/pages/categories.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body class="body-web">
 <div class="background"></div>
@@ -37,38 +42,70 @@
                 <span class="badge easy">Easy</span>
                 <span class="points">120 pts</span>
             </div>
+            <div class="challenge-actions">
+                <button class="cta-btn secondary small" onclick="event.stopPropagation(); showChallengeHint('Authentication Bypass')">
+                    💡 Подсказка
+                </button>
+                <button class="cta-btn primary small" onclick="event.stopPropagation(); validateChallengeFlag('Authentication Bypass')">
+                    🏴‍☠️ Флаг
+                </button>
+            </div>
         </div>
 
         <!-- SQL Injection Challenge -->
         <div class="challenge-card" onclick="window.location.href='/challenges/sqli'">
             <div class="challenge-icon">💉</div>
-            <h3>SQL Injection</h3>
+            <h3>SQL Injection Basic</h3>
             <p>Exploit SQL injection vulnerabilities to bypass login forms and extract sensitive information.</p>
             <div class="challenge-meta">
                 <span class="badge easy">Easy</span>
                 <span class="points">100 pts</span>
+            </div>
+            <div class="challenge-actions">
+                <button class="cta-btn secondary small" onclick="event.stopPropagation(); showChallengeHint('SQL Injection Basic')">
+                    💡 Подсказка
+                </button>
+                <button class="cta-btn primary small" onclick="event.stopPropagation(); validateChallengeFlag('SQL Injection Basic')">
+                    🏴‍☠️ Флаг
+                </button>
             </div>
         </div>
 
         <!-- XSS Challenge -->
         <div class="challenge-card" onclick="window.location.href='/challenges/xss'">
             <div class="challenge-icon">🦠</div>
-            <h3>XSS Attack</h3>
+            <h3>XSS Challenge</h3>
             <p>Execute cross-site scripting attacks to steal cookies and perform actions on behalf of users.</p>
             <div class="challenge-meta">
                 <span class="badge medium">Medium</span>
                 <span class="points">200 pts</span>
+            </div>
+            <div class="challenge-actions">
+                <button class="cta-btn secondary small" onclick="event.stopPropagation(); showChallengeHint('XSS Challenge')">
+                    💡 Подсказка
+                </button>
+                <button class="cta-btn primary small" onclick="event.stopPropagation(); validateChallengeFlag('XSS Challenge')">
+                    🏴‍☠️ Флаг
+                </button>
             </div>
         </div>
 
         <!-- CSRF Challenge -->
         <div class="challenge-card" onclick="window.location.href='/challenges/csrf'">
             <div class="challenge-icon">🔄</div>
-            <h3>CSRF Exploitation</h3>
+            <h3>CSRF Challenge</h3>
             <p>Learn cross-site request forgery attacks to make users perform unintended actions.</p>
             <div class="challenge-meta">
                 <span class="badge medium">Medium</span>
                 <span class="points">150 pts</span>
+            </div>
+            <div class="challenge-actions">
+                <button class="cta-btn secondary small" onclick="event.stopPropagation(); showChallengeHint('CSRF Challenge')">
+                    💡 Подсказка
+                </button>
+                <button class="cta-btn primary small" onclick="event.stopPropagation(); validateChallengeFlag('CSRF Challenge')">
+                    🏴‍☠️ Флаг
+                </button>
             </div>
         </div>
 
@@ -80,6 +117,14 @@
             <div class="challenge-meta">
                 <span class="badge hard">Hard</span>
                 <span class="points">250 pts</span>
+            </div>
+            <div class="challenge-actions">
+                <button class="cta-btn secondary small" onclick="event.stopPropagation(); showChallengeHint('Path Traversal')">
+                    💡 Подсказка
+                </button>
+                <button class="cta-btn primary small" onclick="event.stopPropagation(); validateChallengeFlag('Path Traversal')">
+                    🏴‍☠️ Флаг
+                </button>
             </div>
         </div>
     </div>
@@ -102,6 +147,9 @@
 <!-- Footer -->
 <div th:replace="~{fragments/footer :: footer}"></div>
 
+<!-- JavaScript -->
+<script src="/js/utils.js"></script>
 <script src="/js/main.js"></script>
+<script src="/js/challenges/web-challenges.js"></script>
 </body>
 </html>
