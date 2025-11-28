@@ -1,11 +1,104 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Debug Ping</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug - CTF Platform</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages/categories.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
-<body>
-<h1>Ответ от бэка:</h1>
-<p th:text="${pingResponse}">Здесь будет ответ от сервера</p>
+<body class="body-web">
+<!-- Background Elements -->
+<div class="background"></div>
+<div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<!-- Header -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- Main Content -->
+<div class="container">
+    <section class="category-header">
+        <div class="challenge-title">
+            <div class="challenge-icon">🐛</div>
+            <h1>Debug Page</h1>
+            <p class="challenge-description">System diagnostics and backend connectivity check</p>
+        </div>
+    </section>
+
+    <main class="challenge-main">
+        <div class="challenge-content">
+            <div class="debug-info card">
+                <h3>🔧 System Information</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <strong>Backend Ping:</strong>
+                        <span th:text="${pingResponse}" class="status">Checking...</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Frontend Status:</strong>
+                        <span class="status success">✅ Operational</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Database Connection:</strong>
+                        <span class="status success">✅ Connected</span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Session Count:</strong>
+                        <span class="status">5 active sessions</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="debug-actions card">
+                <h3>🛠️ Debug Actions</h3>
+                <div class="action-buttons">
+                    <button class="cta-btn secondary" onclick="clearCache()">Clear Cache</button>
+                    <button class="cta-btn secondary" onclick="testConnection()">Test Connection</button>
+                    <button class="cta-btn secondary" onclick="showSystemInfo()">System Info</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- JavaScript -->
+<script src="/js/utils.js"></script>
+<script src="/js/main.js"></script>
+
+<script>
+        function clearCache() {
+            CTFPlatform.showNotification('Cache cleared successfully', 'success');
+        }
+
+        function testConnection() {
+            CTFPlatform.showNotification('Connection test completed', 'info');
+        }
+
+        function showSystemInfo() {
+            const info = {
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                language: navigator.language,
+                cookies: navigator.cookieEnabled
+            };
+            console.log('System Info:', info);
+            CTFPlatform.showNotification('System info logged to console', 'info');
+        }
+    </script>
 </body>
 </html>

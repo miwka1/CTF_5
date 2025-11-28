@@ -1,0 +1,111 @@
+/* СТИЛИ ДЛЯ XSS CHALLENGE */
+.challenge-content {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.comment-section {
+    background: rgba(26, 26, 26, 0.8);
+    border: 2px solid var(--primary-color);
+    border-radius: 15px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+}
+
+.comment-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.comment-section p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.comment-input-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.comment-input-group input {
+    flex: 1;
+    padding: 12px;
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid var(--primary-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+}
+
+.comment-input-group input:focus {
+    outline: none;
+    border-color: #00cc6a;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+.comments-container {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(10, 10, 10, 0.6);
+    min-height: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.comment {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.comment:last-child {
+    margin-bottom: 0;
+}
+
+.comment-meta {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: between;
+    align-items: center;
+}
+
+.comment-text {
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+.alert-warning {
+    background: rgba(255, 165, 0, 0.1);
+    border: 1px solid #ffa500;
+    color: #ffa500;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+@media (max-width: 768px) {
+    .comment-input-group {
+        flex-direction: column;
+    }
+
+    .comment-section {
+        padding: 1.5rem;
+    }
+}

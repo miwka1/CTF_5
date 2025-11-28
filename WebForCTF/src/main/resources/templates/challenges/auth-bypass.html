@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth Bypass Challenge - CTF Platform</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/challenges/auth-bypass.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="body-web">
+<!-- Background Elements -->
+<div class="background"></div>
+<div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<!-- Header -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- Main Content -->
+<div class="container">
+    <!-- Challenge Header -->
+    <section class="challenge-header">
+        <div class="challenge-title">
+            <div class="challenge-icon">🚪</div>
+            <h1>Authentication Bypass</h1>
+            <p class="challenge-description">Bypass the authentication mechanism to access the admin panel</p>
+            <div class="challenge-meta">
+                <span class="difficulty-badge easy">Easy</span>
+                <span class="points-badge">80 points</span>
+            </div>
+        </div>
+    </section>
+
+    <main class="challenge-main">
+        <div class="challenge-content">
+            <div class="admin-panel card">
+                <h3>🔒 Admin Panel</h3>
+                <p>Access restricted to administrators only. The authentication check is client-side and vulnerable.</p>
+
+                <div class="access-control">
+                    <div class="access-status">
+                        <div class="status-indicator">
+                            <span class="status-dot" id="statusDot"></span>
+                            <span class="status-text" id="statusText">Access: Unknown</span>
+                        </div>
+                    </div>
+
+                    <div class="access-actions">
+                        <button id="checkAccessBtn" class="cta-btn primary">Check Access</button>
+                        <button id="resetAccessBtn" class="cta-btn secondary">Reset Access</button>
+                    </div>
+                </div>
+
+                <div id="adminContent" class="admin-content" style="display: none;">
+                    <h4>🔓 Admin Access Granted</h4>
+                    <div class="secret-data">
+                        <h5>Confidential Information</h5>
+                        <div class="data-item">
+                            <strong>Server Configuration:</strong>
+                            <pre>Database: MySQL 8.0\nWeb Server: Nginx 1.18\nPHP: 8.1.0</pre>
+                        </div>
+                        <div class="data-item">
+                            <strong>User Database:</strong>
+                            <pre>Total Users: 1,247\nActive Sessions: 23\nAdmin Accounts: 3</pre>
+                        </div>
+                        <div class="data-item">
+                            <strong>Security Keys:</strong>
+                            <pre>API Key: sk_live_51Jz8z...\nEncryption Key: 7x!A%D*G-KaPdSgV</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exploitation Methods -->
+                <div class="exploitation-methods">
+                    <h4>🛠️ Exploitation Methods</h4>
+                    <p>Try these methods to bypass authentication:</p>
+
+                    <div class="method-buttons">
+                        <button id="cookieMethodBtn" class="cta-btn secondary">Set Admin Cookie</button>
+                        <button id="localStorageBtn" class="cta-btn secondary">Set LocalStorage</button>
+                        <button id="sessionStorageBtn" class="cta-btn secondary">Set SessionStorage</button>
+                        <button id="urlMethodBtn" class="cta-btn secondary">Use URL Parameters</button>
+                    </div>
+
+                    <div class="method-info">
+                        <p><small>These methods simulate common authentication bypass techniques.</small></p>
+                    </div>
+                </div>
+
+                <!-- Access Log -->
+                <div class="access-log">
+                    <h4>📋 Access Log</h4>
+                    <div class="log-header">
+                        <span>Time</span>
+                        <span>Method</span>
+                        <span>Status</span>
+                    </div>
+                    <div id="logEntries" class="log-entries">
+                        <!-- Access logs will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- JavaScript -->
+<script src="/js/utils.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/challenges/auth-bypass.js"></script>
+</body>
+</html>

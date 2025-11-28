@@ -1,0 +1,163 @@
+/* СТИЛИ СТРАНИЦЫ ПОЛЬЗОВАТЕЛЕЙ */
+.users-section {
+    flex: 1;
+    padding: 2rem 0;
+}
+
+.users-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.users-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.users-container {
+    flex: 1;
+}
+
+.users-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.user-card {
+    background: rgba(26, 26, 26, 0.8);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+}
+
+.user-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.2);
+}
+
+.user-avatar {
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 255, 136, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--primary-color);
+    flex-shrink: 0;
+}
+
+.avatar-icon {
+    font-size: 1.5rem;
+}
+
+.user-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.user-name {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-email {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-family: 'Roboto', sans-serif;
+}
+
+.user-stats {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.user-score {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.user-joined {
+    color: var(--text-secondary);
+    font-family: 'Roboto', sans-serif;
+}
+
+.user-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.badge.admin {
+    background: rgba(255, 0, 136, 0.2);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+}
+
+.no-users {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-secondary);
+    grid-column: 1 / -1;
+}
+
+.no-users-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.no-users h3 {
+    font-family: 'Orbitron', sans-serif;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.no-users p {
+    margin-bottom: 2rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+@media (max-width: 768px) {
+    .users-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .user-card {
+        padding: 1.2rem;
+    }
+
+    .user-avatar {
+        width: 50px;
+        height: 50px;
+    }
+
+    .avatar-icon {
+        font-size: 1.2rem;
+    }
+}

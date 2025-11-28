@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users - CTF Platform</title>
-    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages/users.css">
+    <link rel="stylesheet" href="/css/components/footer.css">
+
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body class="body-users">
+<!-- Background Elements -->
 <div class="background"></div>
 <div class="particles">
     <div class="particle"></div>
@@ -16,35 +25,54 @@
     <div class="particle"></div>
 </div>
 
+<!-- Header -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- Main Content -->
 <div class="container">
-    <header class="header">
-        <div class="logo">
-            <a th:href="@{/}" style="text-decoration: none;">
-                <h1>CTF<span>PLATFORM</span></h1>
-            </a>
+    <section class="users-section">
+        <div class="users-header">
+            <h1 class="section-title">Users</h1>
+            <p class="users-subtitle">Registered CTF Platform Users</p>
         </div>
-        <nav class="nav">
-            <a th:href="@{/}" class="nav-link">Home</a>
-            <a th:href="@{/category/pwn}" class="nav-link">PWN</a>
-            <a th:href="@{/category/web}" class="nav-link">Web</a>
-            <a th:href="@{/category/crypto}" class="nav-link">Crypto</a>
-            <a th:href="@{/users}" class="nav-link active">Users</a>
-            <th:block th:if="${currentUser == null}">
-                <a th:href="@{/auth}" class="nav-link login-btn">Login</a>
-            </th:block>
-            <th:block th:if="${currentUser != null}">
-                <a th:href="@{/logout}" class="nav-link login-btn">Logout</a>
-            </th:block>
-        </nav>
-    </header>
 
-    <!-- Пустая страница -->
+        <div class="users-container">
+            <div class="users-grid">
+                <!-- User Cards -->
+                <div th:each="user : ${users}" class="user-card">
+                    <div class="user-avatar">
+                        <span class="avatar-icon">👤</span>
+                    </div>
+                    <div class="user-info">
+                        <h3 class="user-name" th:text="${user.username}">Username</h3>
+                        <p class="user-email" th:text="${user.email}">user@example.com</p>
+                        <div class="user-stats">
+                            <span class="user-score" th:text="'Score: ' + ${user.score != null ? user.score : 0}">Score: 0</span>
+                            <span class="user-joined" th:text="'Joined: ' + ${#temporals.format(user.createdAt != null ? user.createdAt : #temporals.createNow(), 'dd.MM.yyyy')}">Joined: 01.01.2025</span>
+                        </div>
+                    </div>
+                    <div class="user-badge" th:if="${user.role != null and user.role == 'ADMIN'}">
+                        <span class="badge admin">Admin</span>
+                    </div>
+                </div>
+            </div>
 
-    <footer class="footer">
-        <p>&copy; 2025 CTF Platform. Built for cybersecurity enthusiasts. | Secure • Learn • Exploit</p>
-    </footer>
+            <!-- No Users Message -->
+            <div th:if="${#lists.isEmpty(users)}" class="no-users">
+                <div class="no-users-icon">🔍</div>
+                <h3>No Users Found</h3>
+                <p>There are no registered users yet.</p>
+                <a th:href="@{/auth?register}" class="cta-btn primary">Be the First!</a>
+            </div>
+        </div>
+    </section>
 </div>
 
-<script src="/static/js/script.js"></script>
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- JavaScript -->
+<script src="/js/utils.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>

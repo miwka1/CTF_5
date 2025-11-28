@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="footer" class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>CTF Platform</h4>
+            <p>Master cybersecurity through hands-on challenges. Learn, practice, and compete in a safe environment.</p>
+        </div>
+
+        <div class="footer-section">
+            <h4>Categories</h4>
+            <ul class="footer-links">
+                <li><a th:href="@{/category/pwn}">PWN Challenges</a></li>
+                <li><a th:href="@{/category/web}">Web Security</a></li>
+                <li><a th:href="@{/category/crypto}">Cryptography</a></li>
+                <li><a th:href="@{/users}">User Rankings</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h4>Resources</h4>
+            <ul class="footer-links">
+                <li><a th:href="@{/debug}">System Status</a></li>
+                <li><a href="/docs" target="_blank">Documentation</a></li>
+                <li><a href="/challenges" target="_blank">All Challenges</a></li>
+                <li><a href="/leaderboard" target="_blank">Global Leaderboard</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h4>Connect</h4>
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="GitHub">
+                    <span>🐙</span> GitHub
+                </a>
+                <a href="#" class="social-link" aria-label="Discord">
+                    <span>💬</span> Discord
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                    <span>🐦</span> Twitter
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2025 CTF Platform. Built for cybersecurity enthusiasts. | Secure • Learn • Exploit</p>
+        <div class="footer-meta">
+            <span>Version 2.0.1</span>
+            <span>•</span>
+            <span id="serverTime" th:text="${#dates.format(#dates.createNow(), 'dd.MM.yyyy HH:mm')}">01.01.2025 12:00</span>
+            <span>•</span>
+            <span>Educational Purpose Only</span>
+        </div>
+    </div>
+</div>

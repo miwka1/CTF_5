@@ -30,14 +30,15 @@ public class MainController {
     @Autowired
     private com.ctf.session.SessionRegistry sessionRegistry;
 
-
     @GetMapping("/")
     public String home(Model model, HttpSession session) {
         Boolean isAuthenticated = (Boolean) session.getAttribute("isAuthenticated");
         String username = (String) session.getAttribute("username");
+        User currentUser = (User) session.getAttribute("user");
 
         model.addAttribute("isAuthenticated", isAuthenticated != null && isAuthenticated);
         model.addAttribute("username", username);
+        model.addAttribute("currentUser", currentUser);
 
         return "index";
     }
@@ -59,18 +60,22 @@ public class MainController {
         }
     }
 
-
     @GetMapping("/auth")
     public String authPage(@RequestParam(value = "register", required = false) String register,
                            @RequestParam(value = "error", required = false) String error,
-                           Model model) {
+                           Model model, HttpSession session) {
+        User currentUser = (User) session.getAttribute("user");
+        Boolean isAuthenticated = (Boolean) session.getAttribute("isAuthenticated");
+
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("isAuthenticated", isAuthenticated != null && isAuthenticated);
         model.addAttribute("isLogin", register == null);
+
         if (error != null) {
             model.addAttribute("error", "Неверное имя пользователя или пароль");
         }
         return "auth";
     }
-
 
     private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 
@@ -86,7 +91,6 @@ public class MainController {
             return "auth";
         }
         try {
-
 
             Logger logger = LoggerFactory.getLogger(MainController.class);
             logger.info("LOGIN ATTEMPT: username={} sessionID={}", username, session.getId());
@@ -114,7 +118,6 @@ public class MainController {
 
                 sessionRegistry.registerSession(session.getId(), username);
                 logger.info("SESSION REGISTERED: {} -> {}", session.getId(), username);
-
 
                 logger.info("LOGIN SUCCESS: username={} sessionID={}", username, session.getId());
                 logger.info("SESSION ATTRIBUTES: username={}, isAuthenticated={}",
@@ -147,7 +150,6 @@ public class MainController {
         }
     }
 
-
     @GetMapping("/api/sessions")
     @ResponseBody
     public List<Map<String, String>> getActiveSessions() {
@@ -159,7 +161,7 @@ public class MainController {
                 .toList();
     }
 
-@PostMapping("/register")
+    @PostMapping("/register")
     public String registerUser(
             @RequestParam String username,
             @RequestParam String password,
@@ -172,34 +174,30 @@ public class MainController {
 
             if (username == null || username.trim().isEmpty()) {
                 model.addAttribute("error", "Имя пользователя обязательно");
-                return showRegisterForm(model);
+                return showRegisterForm(model, session);
             }
 
             if (email == null || email.trim().isEmpty()) {
                 model.addAttribute("error", "Email обязателен");
-                return showRegisterForm(model);
+                return showRegisterForm(model, session);
             }
 
             if (password == null || password.isEmpty()) {
                 model.addAttribute("error", "Пароль обязателен");
-                return showRegisterForm(model);
+                return showRegisterForm(model, session);
             }
-
 
             if (!password.equals(confirmPassword)) {
                 model.addAttribute("error", "Пароли не совпадают");
-                return showRegisterForm(model);
+                return showRegisterForm(model, session);
             }
-
 
             if (password.length() < 6) {
                 model.addAttribute("error", "Пароль должен содержать минимум 6 символов");
-                return showRegisterForm(model);
+                return showRegisterForm(model, session);
             }
 
-
             User user = userService.registerUser(username.trim(), password, email.trim());
-
 
             session.setAttribute("user", user);
             session.setAttribute("username", user.getUsername());
@@ -209,16 +207,19 @@ public class MainController {
         } catch (RuntimeException e) {
 
             model.addAttribute("error", e.getMessage());
-            return showRegisterForm(model);
+            return showRegisterForm(model, session);
         }
     }
 
+    private String showRegisterForm(Model model, HttpSession session) {
+        User currentUser = (User) session.getAttribute("user");
+        Boolean isAuthenticated = (Boolean) session.getAttribute("isAuthenticated");
 
-    private String showRegisterForm(Model model) {
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("isAuthenticated", isAuthenticated != null && isAuthenticated);
         model.addAttribute("isLogin", false);
         return "auth";
     }
-
 
     @GetMapping("/check-username")
     @ResponseBody
@@ -229,7 +230,6 @@ public class MainController {
         return userService.usernameExists(username.trim()) ? "exists" : "available";
     }
 
-
     @GetMapping("/check-email")
     @ResponseBody
     public String checkEmail(@RequestParam String email) {
@@ -239,17 +239,18 @@ public class MainController {
         return userService.emailExists(email.trim().toLowerCase()) ? "exists" : "available";
     }
 
-
     @GetMapping("/users")
     public String showUsers(Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute("user");
+        Boolean isAuthenticated = (Boolean) session.getAttribute("isAuthenticated");
+
         model.addAttribute("currentUser", currentUser);
+        model.addAttribute("isAuthenticated", isAuthenticated != null && isAuthenticated);
 
         List<User> users = userService.getAllUsers();
         model.addAttribute("users", users);
         return "users";
     }
-
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
@@ -258,10 +259,15 @@ public class MainController {
         return "redirect:/";
     }
 
-
     @GetMapping("/debug")
-    public String debugPage(Model model) {
-        String backendUrl = "http://backend:8080/debug/public/ping"; 
+    public String debugPage(Model model, HttpSession session) {
+        User currentUser = (User) session.getAttribute("user");
+        Boolean isAuthenticated = (Boolean) session.getAttribute("isAuthenticated");
+
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("isAuthenticated", isAuthenticated != null && isAuthenticated);
+
+        String backendUrl = "http://backend:8080/debug/public/ping";
         RestTemplate restTemplate = new RestTemplate();
         String backendResponse;
         try {
@@ -271,24 +277,25 @@ public class MainController {
         }
 
         model.addAttribute("pingResponse", backendResponse);
-        return "debug"; 
+        return "debug";
     }
-
-
 
     @GetMapping("/category/{category}")
     public String showCategory(@PathVariable String category, Model model, HttpSession session) {
         User currentUser = (User) session.getAttribute("user");
+        Boolean isAuthenticated = (Boolean) session.getAttribute("isAuthenticated");
+
         model.addAttribute("currentUser", currentUser);
+        model.addAttribute("isAuthenticated", isAuthenticated != null && isAuthenticated);
         model.addAttribute("category", category);
 
         switch (category.toLowerCase()) {
             case "pwn":
-                return "pwn";
+                return "categories/pwn";
             case "web":
-                return "web";
+                return "categories/web";
             case "crypto":
-                return "crypto";
+                return "categories/crypto";
             default:
                 return "redirect:/";
         }
