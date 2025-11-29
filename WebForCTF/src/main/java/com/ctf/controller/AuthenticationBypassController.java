@@ -21,8 +21,11 @@ public class AuthenticationBypassController {
                     model.addAttribute("challenge", challenge);
                     model.addAttribute("points", challenge.getPoints());
                 });
-        return "auth-bypass"; // Убедитесь, что у вас есть auth-bypass.html в templates/
+        return "challenges/auth-bypass"; // Добавить папку challenges/
     }
+
+
+
 
     @PostMapping("/check-admin")
     @ResponseBody

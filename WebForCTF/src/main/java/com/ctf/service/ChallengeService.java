@@ -25,8 +25,8 @@ public class ChallengeService {
                     100,
                     "easy",
                     "CTF{sql_1nj3ct10n_3asy_w1n}",
-                    "Используйте ' OR '1'='1 в поле username",
-                    "Попробуйте использовать SQL инъекцию в поле username. Пример: ' OR '1'='1"
+                    "Попробуйте использовать специальные символы в поле username",
+                    "Изучите как работают SQL запросы и кавычки в условиях WHERE"
             );
             challengeRepository.save(sqliChallenge);
         }
@@ -40,10 +40,55 @@ public class ChallengeService {
                     120,
                     "easy",
                     "CTF{auth_bypass_m4st3r_2024}",
-                    "Методы обхода: 1) ' OR '1'='1 в токене, 2) admin_session_12345 в сессии, 3) Установите cookie admin=true",
-                    "Попробуйте разные методы обхода: SQL инъекция, специальные сессии, cookies администратора"
+                    "Проверьте разные способы хранения данных в браузере",
+                    "Изучите куки, localStorage и параметры URL"
             );
             challengeRepository.save(authBypassChallenge);
+        }
+
+        // XSS Challenge
+        if (!challengeRepository.findByTitle("XSS Challenge").isPresent()) {
+            Challenge xssChallenge = new Challenge(
+                    "XSS Challenge",
+                    "Execute cross-site scripting attacks in the comment section to steal the flag.",
+                    "web",
+                    200,
+                    "medium",
+                    "CTF{xss_m4st3r_2024}",
+                    "Попробуйте вставить HTML теги с JavaScript в комментарии",
+                    "Изучите различные типы XSS payloads и event handlers"
+            );
+            challengeRepository.save(xssChallenge);
+        }
+
+        // CSRF Challenge
+        if (!challengeRepository.findByTitle("CSRF Challenge").isPresent()) {
+            Challenge csrfChallenge = new Challenge(
+                    "CSRF Challenge",
+                    "Perform Cross-Site Request Forgery attack to transfer funds without user consent.",
+                    "web",
+                    150,
+                    "medium",
+                    "CTF{csrf_vulnerable_2024}",
+                    "Создайте страницу которая автоматически отправляет форму",
+                    "Изучите как браузеры обрабатывают запросы между сайтами"
+            );
+            challengeRepository.save(csrfChallenge);
+        }
+
+        // Path Traversal Challenge
+        if (!challengeRepository.findByTitle("Path Traversal").isPresent()) {
+            Challenge pathTraversalChallenge = new Challenge(
+                    "Path Traversal",
+                    "Access files outside the web root directory using path traversal techniques.",
+                    "web",
+                    250,
+                    "hard",
+                    "CTF{path_traversal_master_2024}",
+                    "Используйте последовательности для навигации по директориям",
+                    "Изучите как операционные системы обрабатывают пути к файлам"
+            );
+            challengeRepository.save(pathTraversalChallenge);
         }
     }
 
@@ -67,7 +112,10 @@ public class ChallengeService {
         if (username.contains("' OR '1'='1") ||
                 username.contains("' OR 1=1--") ||
                 username.contains("' OR 'a'='a") ||
-                username.contains("admin'--")) {
+                username.contains("admin'--") ||
+                username.contains("' UNION SELECT") ||
+                username.contains("'; DROP TABLE") ||
+                username.contains("' OR 'x'='x")) {
             return true;
         }
 
@@ -77,6 +125,38 @@ public class ChallengeService {
         }
 
         return false;
+    }
+
+    // Метод для проверки Path Traversal
+    public boolean checkPathTraversal(String path) {
+        // Уязвимая проверка пути
+        if (path.contains("../") ||
+                path.contains("..\\") ||
+                path.contains("/etc/passwd") ||
+                path.contains("/secret/") ||
+                path.contains("flag.txt")) {
+            return true;
+        }
+        return false;
+    }
+
+    // Метод для проверки XSS payload
+    public boolean detectXSSPayload(String input) {
+        // Простая проверка XSS векторов
+        return input.contains("<script>") ||
+                input.contains("javascript:") ||
+                input.contains("onerror=") ||
+                input.contains("onload=") ||
+                input.contains("onclick=") ||
+                input.contains("<img") ||
+                input.contains("<svg") ||
+                input.contains("alert(");
+    }
+
+    // Метод для проверки CSRF атаки
+    public boolean validateCSRFAttempt(String amount, String targetAccount) {
+        // Проверяем типичную CSRF атаку
+        return "500".equals(amount) && "attacker_account".equals(targetAccount);
     }
 
     public List<Challenge> getChallengesByCategory(String category) {

@@ -23,7 +23,7 @@ public class SqlInjectionController {
                     model.addAttribute("points", challenge.getPoints());
                 });
 
-        return "sqli";
+        return "challenges/sqli"; // Добавить папку challenges/
     }
 
     @GetMapping("/info")

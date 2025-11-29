@@ -23,9 +23,7 @@ class WebChallengesManager {
             if (e.target.matches('.validate-flag-btn')) {
                 this.validateFlag(e.target.dataset.challenge);
             }
-            if (e.target.matches('.show-solution-btn')) {
-                this.showSolution(e.target.dataset.challenge);
-            }
+            // УДАЛЕНО: обработчик для show-solution-btn
         });
     }
 
@@ -136,7 +134,7 @@ class WebChallengesManager {
                 button.textContent = buttonConfig.text;
                 button.className = buttonConfig.className || 'cta-btn primary';
                 button.style.cssText = buttonConfig.style || '';
-                
+
                 if (buttonConfig.onClick) {
                     button.addEventListener('click', () => {
                         buttonConfig.onClick();
@@ -174,7 +172,7 @@ class WebChallengesManager {
                     from { opacity: 0; }
                     to { opacity: 1; }
                 }
-                
+
                 @keyframes slideInUp {
                     from {
                         opacity: 0;
@@ -185,16 +183,16 @@ class WebChallengesManager {
                         transform: translateY(0) scale(1);
                     }
                 }
-                
+
                 .challenge-modal-content::-webkit-scrollbar {
                     width: 8px;
                 }
-                
+
                 .challenge-modal-content::-webkit-scrollbar-track {
                     background: rgba(255, 255, 255, 0.05);
                     border-radius: 4px;
                 }
-                
+
                 .challenge-modal-content::-webkit-scrollbar-thumb {
                     background: var(--primary-color);
                     border-radius: 4px;
@@ -217,9 +215,9 @@ class WebChallengesManager {
                         Введите флаг для задания <strong>${challengeName}</strong>
                     </p>
                     <div class="form-group">
-                        <input type="text" 
-                               id="flagInput" 
-                               placeholder="CTF{...}" 
+                        <input type="text"
+                               id="flagInput"
+                               placeholder="CTF{...}"
                                class="form-input"
                                style="width: 100%; padding: 1rem; font-size: 1.1rem; text-align: center;">
                     </div>
@@ -255,7 +253,7 @@ class WebChallengesManager {
     async submitFlag(challengeName) {
         const flagInput = document.querySelector('#flagInput');
         const flagMessage = document.querySelector('#flagMessage');
-        
+
         if (!flagInput || !flagMessage) return;
 
         const flag = flagInput.value.trim();
@@ -274,11 +272,11 @@ class WebChallengesManager {
             });
 
             const result = await response.json();
-            
+
             if (result.success) {
                 flagMessage.innerHTML = `<span style="color: var(--primary-color);">🎉 ${result.message}</span>`;
                 this.markChallengeAsSolved(challengeName);
-                
+
                 // Автоматически закрываем через 2 секунды
                 setTimeout(() => {
                     const modal = document.querySelector('.challenge-modal');
@@ -298,7 +296,7 @@ class WebChallengesManager {
         try {
             const response = await fetch(`/challenges/${this.getChallengeEndpoint(challengeName)}/hint`);
             const result = await response.json();
-            
+
             this.createChallengeModal(
                 '💡 Подсказка',
                 `
@@ -328,38 +326,7 @@ class WebChallengesManager {
         }
     }
 
-    // Универсальное окно решения
-    async showSolution(challengeName) {
-        this.createChallengeModal(
-            '🔧 Решение',
-            `
-                <div style="text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔧</div>
-                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
-                        Подход к решению задания <strong>${challengeName}</strong>
-                    </p>
-                    
-                    <div style="text-align: left; background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
-                        <h4 style="color: var(--primary-color); margin-bottom: 1rem;">Шаги решения:</h4>
-                        ${this.getChallengeSolution(challengeName)}
-                    </div>
-                    
-                    <div style="padding: 1rem; background: rgba(255, 165, 0, 0.1); border-radius: 8px;">
-                        <small style="color: #ffa500;">
-                            ⚠️ Просмотр решения лишает вас очков за задание
-                        </small>
-                    </div>
-                </div>
-            `,
-            [
-                {
-                    text: 'Я понимаю',
-                    className: 'cta-btn primary',
-                    onClick: () => {}
-                }
-            ]
-        );
-    }
+    // УДАЛЕН МЕТОД showSolution()
 
     getChallengeEndpoint(challengeName) {
         const endpoints = {
@@ -372,64 +339,20 @@ class WebChallengesManager {
         return endpoints[challengeName] || challengeName.toLowerCase().replace(' ', '-');
     }
 
-    getChallengeSolution(challengeName) {
-        const solutions = {
-            'SQL Injection Basic': `
-                <ol style="margin: 0; padding-left: 1.5rem; color: var(--text-secondary);">
-                    <li>В поле username введите: <code>' OR '1'='1</code></li>
-                    <li>Оставьте поле password пустым или введите любой текст</li>
-                    <li>Нажмите Login - вы получите доступ и флаг</li>
-                    <li>Альтернативные payloads: <code>' OR 1=1--</code>, <code>admin'--</code></li>
-                </ol>
-            `,
-            'Authentication Bypass': `
-                <ol style="margin: 0; padding-left: 1.5rem; color: var(--text-secondary);">
-                    <li>Установите cookie: <code>document.cookie = "admin=true"</code></li>
-                    <li>Или используйте URL параметр: <code>?admin=true</code></li>
-                    <li>Или установите localStorage: <code>localStorage.setItem('admin', 'true')</code></li>
-                    <li>Нажмите "Check Access" для получения флага</li>
-                </ol>
-            `,
-            'XSS Challenge': `
-                <ol style="margin: 0; padding-left: 1.5rem; color: var(--text-secondary);">
-                    <li>Введите XSS payload в комментарий: <code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code></li>
-                    <li>Или используйте: <code>&lt;img src=x onerror=alert('XSS')&gt;</code></li>
-                    <li>После выполнения payload появится флаг</li>
-                    <li>Флаг автоматически скопируется в буфер обмена</li>
-                </ol>
-            `,
-            'CSRF Challenge': `
-                <ol style="margin: 0; padding-left: 1.5rem; color: var(--text-secondary);">
-                    <li>Создайте HTML страницу с формой, отправляющей запрос на /challenges/csrf/transfer</li>
-                    <li>Форма должна автоматически отправляться при загрузке страницы</li>
-                    <li>Используйте JavaScript для автоматической отправки POST запроса</li>
-                    <li>При успешной передаче средств появится флаг</li>
-                </ol>
-            `,
-            'Path Traversal': `
-                <ol style="margin: 0; padding-left: 1.5rem; color: var(--text-secondary);">
-                    <li>Введите путь: <code>../../etc/passwd</code></li>
-                    <li>Или: <code>../secret/flag.txt</code></li>
-                    <li>Или: <code>....//....//etc/hosts</code></li>
-                    <li>При успешном доступе к /secret/flag.txt появится флаг</li>
-                </ol>
-            `
-        };
-        return solutions[challengeName] || '<p>Решение не найдено</p>';
-    }
+    // УДАЛЕН МЕТОД getChallengeSolution()
 
     markChallengeAsSolved(challengeName) {
         const solvedChallenges = JSON.parse(localStorage.getItem('solvedChallenges') || '{}');
         solvedChallenges[challengeName] = true;
         localStorage.setItem('solvedChallenges', JSON.stringify(solvedChallenges));
-        
+
         // Обновляем UI если на странице категорий
         this.updateChallengeProgress();
     }
 
     loadChallengeProgress() {
         const solvedChallenges = JSON.parse(localStorage.getItem('solvedChallenges') || '{}');
-        
+
         // Обновляем карточки заданий
         document.querySelectorAll('.challenge-card').forEach(card => {
             const challengeName = card.querySelector('h3').textContent;
@@ -444,12 +367,12 @@ class WebChallengesManager {
     }
 
     updateChallengeProgress() {
-        // Можно добавить обновление прогресса в реальном времени
+
         console.log('Challenge progress updated');
     }
 }
 
-// Глобальные функции для использования в HTML
+
 function showChallengeHint(challengeName) {
     if (window.webChallengesManager) {
         window.webChallengesManager.showHint(challengeName);
@@ -462,13 +385,6 @@ function validateChallengeFlag(challengeName) {
     }
 }
 
-function showChallengeSolution(challengeName) {
-    if (window.webChallengesManager) {
-        window.webChallengesManager.showSolution(challengeName);
-    }
-}
-
-// Инициализация менеджера
 document.addEventListener('DOMContentLoaded', () => {
     if (window.location.pathname.includes('/category/web') || 
         window.location.pathname.includes('/challenges/')) {

@@ -20,6 +20,9 @@ import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -271,6 +274,7 @@ public class MainController {
         RestTemplate restTemplate = new RestTemplate();
         String backendResponse;
         try {
+            // Исправленная строка - используем getForObject вместо getForEntity
             backendResponse = restTemplate.getForObject(backendUrl, String.class);
         } catch (Exception e) {
             backendResponse = "Ошибка при обращении к бэку: " + e.getMessage();
@@ -300,4 +304,27 @@ public class MainController {
                 return "redirect:/";
         }
     }
+
+    // Маршрут для обзора web-заданий
+    @GetMapping("/challenges/web")
+    public String webChallengesOverview(Model model, HttpSession session) {
+        User currentUser = (User) session.getAttribute("user");
+        Boolean isAuthenticated = (Boolean) session.getAttribute("isAuthenticated");
+
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("isAuthenticated", isAuthenticated != null && isAuthenticated);
+
+        // Исправленный список с явным указанием типа
+        List<Map<String, Object>> challenges = List.of(
+                Map.<String, Object>of("title", "SQL Injection Basic", "points", 100, "difficulty", "easy", "url", "/challenges/sqli"),
+                Map.<String, Object>of("title", "Authentication Bypass", "points", 120, "difficulty", "easy", "url", "/challenges/auth-bypass"),
+                Map.<String, Object>of("title", "XSS Challenge", "points", 200, "difficulty", "medium", "url", "/challenges/xss"),
+                Map.<String, Object>of("title", "CSRF Challenge", "points", 150, "difficulty", "medium", "url", "/challenges/csrf"),
+                Map.<String, Object>of("title", "Path Traversal", "points", 250, "difficulty", "hard", "url", "/challenges/path-traversal")
+        );
+
+        model.addAttribute("challenges", challenges);
+        return "categories/web";
+    }
+
 }

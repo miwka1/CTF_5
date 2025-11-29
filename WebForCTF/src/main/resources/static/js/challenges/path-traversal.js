@@ -12,12 +12,15 @@ class PathTraversalChallenge {
 
     init() {
         this.initEventListeners();
+        this.initExampleButtons();
         this.loadInitialDirectory();
     }
 
     initEventListeners() {
-        const loadBtn = document.querySelector('button[onclick="loadFile()"]');
+        const loadBtn = document.getElementById('loadFileBtn');
         const fileInput = document.getElementById('filePath');
+        const resetBtn = document.getElementById('resetBrowserBtn');
+        const showExamplesBtn = document.getElementById('showAllExamplesBtn');
 
         if (loadBtn) {
             loadBtn.addEventListener('click', () => {
@@ -30,6 +33,53 @@ class PathTraversalChallenge {
                 if (e.key === 'Enter') {
                     this.loadFile();
                 }
+            });
+        }
+
+        if (resetBtn) {
+            resetBtn.addEventListener('click', () => {
+                this.resetChallenge();
+            });
+        }
+
+        if (showExamplesBtn) {
+            showExamplesBtn.addEventListener('click', () => {
+                this.demonstrateTraversal();
+            });
+        }
+    }
+
+    initExampleButtons() {
+        const example1Btn = document.getElementById('example1Btn');
+        const example2Btn = document.getElementById('example2Btn');
+        const example3Btn = document.getElementById('example3Btn');
+        const example4Btn = document.getElementById('example4Btn');
+
+        if (example1Btn) {
+            example1Btn.addEventListener('click', () => {
+                document.getElementById('filePath').value = '../../etc/passwd';
+                this.loadFile();
+            });
+        }
+
+        if (example2Btn) {
+            example2Btn.addEventListener('click', () => {
+                document.getElementById('filePath').value = '../secret/flag.txt';
+                this.loadFile();
+            });
+        }
+
+        if (example3Btn) {
+            example3Btn.addEventListener('click', () => {
+                document.getElementById('filePath').value = '....//....//etc/hosts';
+                this.loadFile();
+            });
+        }
+
+        if (example4Btn) {
+            example4Btn.addEventListener('click', () => {
+                document.getElementById('filePath').value = '/public/../../../secret/';
+                this.loadFile();
             });
         }
     }
@@ -66,7 +116,7 @@ class PathTraversalChallenge {
             },
             '/secret/flag.txt': {
                 type: 'file',
-                content: 'CTF{PATH_TRAVERSAL_MASTER_2024}'
+                content: 'CTF{path_traversal_success_2024}'
             },
             '/secret/credentials.db': {
                 type: 'file',
@@ -90,6 +140,7 @@ class PathTraversalChallenge {
     loadFile() {
         const fileInput = document.getElementById('filePath');
         const fileContent = document.getElementById('fileContent');
+        const currentPath = document.getElementById('currentPath');
 
         if (!fileInput || !fileContent) return;
 
@@ -97,6 +148,11 @@ class PathTraversalChallenge {
         if (!path) {
             this.showError('Please enter a file path');
             return;
+        }
+
+        // Обновляем текущий путь
+        if (currentPath) {
+            currentPath.textContent = path;
         }
 
         // Уязвимость: отсутствует проверка path traversal
@@ -146,7 +202,7 @@ class PathTraversalChallenge {
         fileContent.innerHTML = '';
 
         const header = document.createElement('h4');
-        header.textContent = `Directory: ${path}`;
+        header.textContent = `📁 Directory: ${path}`;
         fileContent.appendChild(header);
 
         const fileList = document.createElement('ul');
@@ -175,23 +231,94 @@ class PathTraversalChallenge {
 
         fileContent.appendChild(fileList);
         fileContent.className = 'file-content';
+
+        // Скрываем информацию о файле при показе директории
+        this.hideFileInfo();
     }
 
     showFile(path, file) {
         const fileContent = document.getElementById('fileContent');
-        fileContent.textContent = file.content;
-        fileContent.className = 'file-content success';
+        fileContent.innerHTML = '';
+
+        const header = document.createElement('h4');
+        header.textContent = `📄 File: ${path}`;
+        fileContent.appendChild(header);
+
+        const contentDiv = document.createElement('div');
+        contentDiv.className = 'file-content-text';
+        contentDiv.textContent = file.content;
 
         // Подсветка синтаксиса для определенных типов файлов
         if (path.endsWith('.json')) {
-            this.highlightJSON(fileContent);
+            this.highlightJSON(contentDiv);
         }
+
+        fileContent.appendChild(contentDiv);
+        fileContent.className = 'file-content success';
+
+        // Показываем информацию о файле
+        this.showFileInfo(path, file);
+    }
+
+    showFileInfo(path, file) {
+        const fileInfo = document.getElementById('fileInfo');
+        const infoPath = document.getElementById('infoPath');
+        const infoSize = document.getElementById('infoSize');
+        const infoType = document.getElementById('infoType');
+        const infoPermissions = document.getElementById('infoPermissions');
+
+        if (fileInfo && infoPath && infoSize && infoType && infoPermissions) {
+            infoPath.textContent = path;
+            infoSize.textContent = this.calculateFileSize(file.content);
+            infoType.textContent = this.getFileType(path);
+            infoPermissions.textContent = this.getFilePermissions(path);
+
+            fileInfo.style.display = 'block';
+        }
+    }
+
+    hideFileInfo() {
+        const fileInfo = document.getElementById('fileInfo');
+        if (fileInfo) {
+            fileInfo.style.display = 'none';
+        }
+    }
+
+    calculateFileSize(content) {
+        const bytes = new Blob([content]).size;
+        if (bytes < 1024) return bytes + ' bytes';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    }
+
+    getFileType(path) {
+        if (path.endsWith('.txt')) return 'Text File';
+        if (path.endsWith('.json')) return 'JSON File';
+        if (path.endsWith('.png') || path.endsWith('.jpg')) return 'Image File';
+        if (path.endsWith('.db')) return 'Database File';
+        return 'Unknown';
+    }
+
+    getFilePermissions(path) {
+        if (path.includes('/secret/') || path.includes('/etc/')) {
+            return 'rw------- (600)';
+        }
+        return 'rw-r--r-- (644)';
     }
 
     showError(message) {
         const fileContent = document.getElementById('fileContent');
-        fileContent.textContent = message;
+        fileContent.innerHTML = '';
+
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.innerHTML = `❌ ${message}`;
+
+        fileContent.appendChild(errorDiv);
         fileContent.className = 'file-content error';
+
+        // Скрываем информацию о файле при ошибке
+        this.hideFileInfo();
     }
 
     highlightJSON(element) {
@@ -219,41 +346,85 @@ class PathTraversalChallenge {
         );
 
         if (hasTraversal && normalizedPath === '/secret/flag.txt') {
-            CTFPlatform.showNotification('Path traversal detected! Flag captured!', 'success');
+            this.showNotification('🎉 Path traversal detected! Flag captured!', 'success');
             this.showFlag();
         } else if (hasTraversal) {
-            CTFPlatform.showNotification('Path traversal attempt detected', 'warning');
+            this.showNotification('⚠️ Path traversal attempt detected', 'warning');
         }
     }
 
     showFlag() {
-        const flag = 'CTF{PATH_TRAVERSAL_MASTER_2024}';
+        const flag = 'CTF{path_traversal_success_2024}';
         const fileBrowser = document.querySelector('.file-browser');
         if (!fileBrowser) return;
 
+        // Удаляем предыдущее сообщение с флагом, если есть
+        const existingFlag = fileBrowser.querySelector('.flag-message');
+        if (existingFlag) {
+            existingFlag.remove();
+        }
+
         const flagElement = document.createElement('div');
-        flagElement.className = 'message success';
+        flagElement.className = 'flag-message';
         flagElement.innerHTML = `
-            🎉 Path Traversal Successful!<br>
-            <strong>Flag: ${flag}</strong><br>
-            <small>Vulnerability: Lack of path sanitization</small>
+            <h4>🎉 Path Traversal Successful!</h4>
+            <div class="flag">${flag}</div>
+            <small>Click to copy flag to clipboard</small>
         `;
 
         flagElement.addEventListener('click', () => {
-            CTFUtils.copyToClipboard(flag);
+            this.copyToClipboard(flag);
+            this.showNotification('Flag copied to clipboard!', 'success');
         });
 
         fileBrowser.appendChild(flagElement);
 
-        CTFUtils.copyToClipboard(flag);
+        // Автоматически копируем флаг в буфер обмена
+        this.copyToClipboard(flag);
+    }
+
+    copyToClipboard(text) {
+        navigator.clipboard.writeText(text).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
+
+    showNotification(message, type = 'info') {
+        // Простая реализация уведомлений
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            background: ${type === 'success' ? '#4CAF50' : type === 'warning' ? '#FF9800' : '#2196F3'};
+            color: white;
+            border-radius: 4px;
+            z-index: 1000;
+            font-family: 'Roboto', sans-serif;
+        `;
+
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
     }
 
     loadInitialDirectory() {
         const fileInput = document.getElementById('filePath');
+        const currentPath = document.getElementById('currentPath');
+
         if (fileInput) {
             fileInput.value = this.basePath;
-            this.loadFile();
         }
+        if (currentPath) {
+            currentPath.textContent = this.basePath;
+        }
+
+        this.showDirectory(this.basePath, this.virtualFilesystem[this.basePath]);
     }
 
     // Методы для демонстрации уязвимостей
@@ -270,28 +441,27 @@ class PathTraversalChallenge {
             console.log(`- ${example} -> ${this.normalizePath(example)}`);
         });
 
-        CTFPlatform.showNotification('Traversal examples logged to console', 'info');
+        this.showNotification('Traversal examples logged to console', 'info');
+
+        // Показываем примеры в alert для удобства
+        alert('Path Traversal Examples:\n\n' + examples.join('\n') + '\n\nCheck console for normalized paths');
     }
 
     resetChallenge() {
         const fileInput = document.getElementById('filePath');
-        const fileContent = document.getElementById('fileContent');
+        const currentPath = document.getElementById('currentPath');
 
         if (fileInput) fileInput.value = this.basePath;
-        if (fileContent) {
-            fileContent.textContent = '';
-            fileContent.className = 'file-content';
-        }
+        if (currentPath) currentPath.textContent = this.basePath;
 
         this.loadInitialDirectory();
-        CTFPlatform.showNotification('File browser reset', 'info');
-    }
-}
+        this.showNotification('File browser reset to initial state', 'info');
 
-// Глобальная функция для обратной совместимости
-function loadFile() {
-    if (window.pathTraversalChallenge) {
-        window.pathTraversalChallenge.loadFile();
+        // Удаляем сообщение с флагом, если есть
+        const flagMessage = document.querySelector('.flag-message');
+        if (flagMessage) {
+            flagMessage.remove();
+        }
     }
 }
 
@@ -299,5 +469,13 @@ function loadFile() {
 document.addEventListener('DOMContentLoaded', () => {
     if (window.location.pathname.includes('/path-traversal')) {
         window.pathTraversalChallenge = new PathTraversalChallenge();
+        console.log('Path Traversal Challenge initialized');
     }
 });
+
+// Глобальная функция для обратной совместимости с HTML
+window.loadFile = function() {
+    if (window.pathTraversalChallenge) {
+        window.pathTraversalChallenge.loadFile();
+    }
+};

@@ -21,7 +21,7 @@ public class PathTraversalController {
                     model.addAttribute("challenge", challenge);
                     model.addAttribute("points", challenge.getPoints());
                 });
-        return "path-traversal";
+        return "challenges/path-traversal"; // ✅ Правильный путь
     }
 
     @GetMapping("/file")
@@ -47,5 +47,26 @@ public class PathTraversalController {
         } else {
             return "{\"success\": false, \"message\": \"❌ Неверный флаг. Попробуйте еще раз.\"}";
         }
+    }
+
+    @GetMapping("/info")
+    @ResponseBody
+    public String getChallengeInfo() {
+        return challengeService.getChallengeByTitle("Path Traversal")
+                .map(challenge -> String.format(
+                        "{\"title\": \"%s\", \"points\": %d, \"difficulty\": \"%s\"}",
+                        challenge.getTitle(),
+                        challenge.getPoints(),
+                        challenge.getDifficulty()
+                ))
+                .orElse("{\"title\": \"Path Traversal\", \"points\": 250, \"difficulty\": \"hard\"}");
+    }
+
+    @GetMapping("/hint")
+    @ResponseBody
+    public String getHint() {
+        return challengeService.getChallengeByTitle("Path Traversal")
+                .map(challenge -> "{\"hint\": \"" + challenge.getHints() + "\"}")
+                .orElse("{\"hint\": \"Подсказка не найдена\"}");
     }
 }

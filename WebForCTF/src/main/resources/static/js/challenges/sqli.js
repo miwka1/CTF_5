@@ -21,7 +21,7 @@ class SQLInjectionChallenge {
         const hintButton = document.querySelector('.hint-button');
         const validateFlagBtn = document.getElementById('validateFlagBtn');
         const resetChallengeBtn = document.getElementById('resetChallengeBtn');
-        const showSolutionBtn = document.getElementById('showSolutionBtn');
+        // УДАЛЕНО: showSolutionBtn
 
         if (loginForm) {
             loginForm.addEventListener('submit', (e) => {
@@ -48,11 +48,7 @@ class SQLInjectionChallenge {
             });
         }
 
-        if (showSolutionBtn) {
-            showSolutionBtn.addEventListener('click', () => {
-                this.showSolution();
-            });
-        }
+        // УДАЛЕНО: обработчик для showSolutionBtn
     }
 
     async loadChallengeInfo() {
@@ -308,72 +304,7 @@ class SQLInjectionChallenge {
         this.showMessage('Challenge has been reset', 'info');
     }
 
-    showSolution() {
-        const solution = `
-SQL Injection Solution:
-
-1. Basic Bypass:
-   Username: ' OR '1'='1
-   Password: anything
-
-2. Union Attack:
-   Username: ' UNION SELECT 1,'admin','hashed_password'--
-   Password: anything
-
-3. Comment Bypass:
-   Username: admin'--
-   Password: anything
-
-The vulnerable query is:
-SELECT * FROM users WHERE username = '[input]' AND password = '[input]'
-
-Try these payloads:
-- ' OR '1'='1
-- ' OR 1=1--
-- ' UNION SELECT 1,2,3--
-- '; DROP TABLE users--
-        `;
-
-        // Создаем модальное окно с решением
-        const modal = document.createElement('div');
-        modal.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-        `;
-
-        const modalContent = document.createElement('div');
-        modalContent.style.cssText = `
-            background: var(--background-card);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 2px solid var(--primary-color);
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-            color: var(--text-primary);
-            font-family: 'Courier New', monospace;
-            white-space: pre-wrap;
-        `;
-
-        modalContent.textContent = solution;
-        modal.appendChild(modalContent);
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.remove();
-            }
-        });
-
-        document.body.appendChild(modal);
-    }
+    // УДАЛЕН МЕТОД showSolution()
 }
 
 // Инициализация на странице SQL Injection

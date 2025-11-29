@@ -21,7 +21,7 @@ public class CsrfController {
                     model.addAttribute("challenge", challenge);
                     model.addAttribute("points", challenge.getPoints());
                 });
-        return "csrf";
+        return "challenges/csrf"; // Добавить папку challenges/
     }
 
     @PostMapping("/transfer")
@@ -44,4 +44,26 @@ public class CsrfController {
             return "{\"success\": false, \"message\": \"❌ Неверный флаг. Попробуйте еще раз.\"}";
         }
     }
+
+    @GetMapping("/info")
+    @ResponseBody
+    public String getChallengeInfo() {
+        return challengeService.getChallengeByTitle("CSRF Challenge")
+                .map(challenge -> String.format(
+                        "{\"title\": \"%s\", \"points\": %d, \"difficulty\": \"%s\"}",
+                        challenge.getTitle(),
+                        challenge.getPoints(),
+                        challenge.getDifficulty()
+                ))
+                .orElse("{\"title\": \"CSRF Challenge\", \"points\": 150, \"difficulty\": \"medium\"}");
+    }
+
+    @GetMapping("/hint")
+    @ResponseBody
+    public String getHint() {
+        return challengeService.getChallengeByTitle("CSRF Challenge")
+                .map(challenge -> "{\"hint\": \"" + challenge.getHints() + "\"}")
+                .orElse("{\"hint\": \"Подсказка не найдена\"}");
+    }
+
 }
