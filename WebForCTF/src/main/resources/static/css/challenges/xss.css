@@ -1,0 +1,319 @@
+/* СТИЛИ ДЛЯ XSS CHALLENGE */
+.challenge-content {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.comment-section {
+    background: rgba(26, 26, 26, 0.8);
+    border: 2px solid var(--primary-color);
+    border-radius: 15px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.comment-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.comment-section:hover::before {
+    left: 100%;
+}
+
+.comment-section h3 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    font-size: 1.5rem;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+.comment-section p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+}
+
+.comment-input-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.comment-input-group input {
+    flex: 1;
+    padding: 12px 16px;
+    background: rgba(10, 10, 10, 0.8);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.comment-input-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: rgba(10, 10, 10, 0.9);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+    transform: translateY(-2px);
+}
+
+.comment-input-group input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+
+.comments-container {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(10, 10, 10, 0.6);
+    min-height: 200px;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+}
+
+/* Стили для скроллбара comments-container */
+.comments-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.comments-container::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.comments-container::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+.comments-container::-webkit-scrollbar-thumb:hover {
+    background: #00cc6a;
+}
+
+.comment {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.3s ease;
+    border-left: 3px solid var(--border-color);
+}
+
+.comment:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-left-color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+.comment:last-child {
+    margin-bottom: 0;
+}
+
+.comment-meta {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between; /* Исправил "between" на "space-between" */
+    align-items: center;
+}
+
+.comment-meta strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.comment-text {
+    color: var(--text-primary);
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+/* Стили для флага при успешной XSS атаке */
+.flag-message {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 136, 255, 0.1));
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    text-align: center;
+    animation: pulseSuccess 2s ease-in-out infinite;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.flag-message:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+}
+
+@keyframes pulseSuccess {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(0, 255, 136, 0.6);
+    }
+}
+
+.flag-message h4 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.flag-message .flag {
+    font-family: 'Courier New', monospace;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 1rem 0;
+    display: inline-block;
+}
+
+.alert-warning {
+    background: rgba(255, 165, 0, 0.1);
+    border: 1px solid #ffa500;
+    color: #ffa500;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.alert-warning::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 165, 0, 0.2), transparent);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Стили для кнопок управления внутри секции */
+.challenge-controls {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.challenge-controls .cta-btn {
+    min-width: 140px;
+}
+
+/* Стили для управления заданием */
+.challenge-management {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.management-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.management-buttons .cta-btn {
+    min-width: 160px;
+    padding: 0.8rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.management-buttons .cta-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .comment-input-group {
+        flex-direction: column;
+    }
+
+    .comment-section {
+        padding: 1.5rem;
+    }
+
+    .challenge-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .challenge-controls .cta-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+
+    .management-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .management-buttons .cta-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .comment-section {
+        padding: 1rem;
+    }
+
+    .comment {
+        padding: 0.8rem;
+    }
+
+    .comment-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+    }
+
+    .flag-message {
+        padding: 1rem;
+    }
+
+    .flag-message .flag {
+        font-size: 1rem;
+        padding: 0.6rem 1rem;
+    }
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="header" class="header">
+    <div class="logo">
+        <a th:href="@{/}" style="text-decoration: none; color: inherit;">
+            <h1>CTF<span>PLATFORM</span></h1>
+        </a>
+    </div>
+    <nav class="nav">
+        <a th:href="@{/}" class="nav-link">Home</a>
+        <a th:href="@{/category/pwn}" class="nav-link">PWN</a>
+        <a th:href="@{/category/web}" class="nav-link">Web</a>
+        <a th:href="@{/category/crypto}" class="nav-link">Crypto</a>
+        <a th:href="@{/users}" class="nav-link">Users</a>
+
+        <th:block th:if="${currentUser == null}">
+            <a th:href="@{/auth}" class="nav-link login-btn">Login</a>
+        </th:block>
+        <th:block th:if="${currentUser != null}">
+            <a th:href="@{/logout}" class="nav-link login-btn">Logout</a>
+        </th:block>
+    </nav>
+</div>

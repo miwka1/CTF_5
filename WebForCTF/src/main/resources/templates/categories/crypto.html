@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Challenges - CTF Platform</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages/categories.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="body-crypto">
+<div class="background"></div>
+<div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<!-- Header -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- Main Content -->
+<div class="container">
+    <section class="category-header">
+        <h1 class="section-title">🔐 Crypto Challenges</h1>
+        <p class="category-subtitle">Cryptography and encryption challenges</p>
+    </section>
+
+    <!-- Coming Soon Section -->
+    <div class="coming-soon">
+        <div class="coming-soon-icon">🚧</div>
+        <h2>Crypto Challenges Coming Soon!</h2>
+        <p>We're developing challenging cryptography puzzles that will test your encryption and decryption skills. This category will include:</p>
+
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">🔑</div>
+                <h4>Classic Ciphers</h4>
+                <p>Caesar, Vigenère, and substitution ciphers</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🧮</div>
+                <h4>RSA Challenges</h4>
+                <p>Public key cryptography and factorization</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🌀</div>
+                <h4>Modern Crypto</h4>
+                <p>AES, DES, and block cipher modes</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">🎯</div>
+                <h4>CTF Specials</h4>
+                <p>Common CTF cryptography techniques</p>
+            </div>
+        </div>
+
+        <div class="progress-info">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 45%"></div>
+            </div>
+            <div class="progress-text">Development in progress - 45% complete</div>
+        </div>
+
+        <div class="eta-message">
+            <p>🕐 <strong>Estimated launch:</strong> January 2025</p>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- JavaScript -->
+<script src="/js/utils.js"></script>
+<script src="/js/main.js"></script>
+</body>
+</html>

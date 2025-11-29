@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Path Traversal Challenge - CTF Platform</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/challenges/path-traversal.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="body-web">
+<!-- Background Elements -->
+<div class="background"></div>
+<div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<!-- Header -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- Main Content -->
+<div class="container">
+    <!-- Challenge Header -->
+    <section class="challenge-header">
+        <div class="challenge-title">
+            <div class="challenge-icon">📁</div>
+            <h1>Path Traversal</h1>
+            <p class="challenge-description">Access files outside the web root directory</p>
+            <div class="challenge-meta">
+                <span class="difficulty-badge hard">Hard</span>
+                <span class="points-badge">250 points</span>
+            </div>
+        </div>
+    </section>
+
+    <main class="challenge-main">
+        <div class="challenge-content">
+            <div class="file-browser card">
+                <h3>📂 File Browser</h3>
+                <p>Browse server files. This file browser has path traversal vulnerabilities.</p>
+
+                <div class="warning-message">
+                    ⚠️ <strong>Warning:</strong> This file browser is vulnerable to path traversal attacks.
+                    Try to access files outside the public directory to find the flag.
+                </div>
+
+                <div class="file-navigation">
+                    <div class="current-path">
+                        <strong>Current Path:</strong>
+                        <span id="currentPath">/public/</span>
+                    </div>
+
+                    <div class="file-input-group">
+                        <input type="text" id="filePath" placeholder="Enter file path..." value="/public/" class="form-input">
+                        <button id="loadFileBtn" class="cta-btn primary">Load File/Directory</button>
+                    </div>
+                </div>
+
+                <div id="fileContent" class="file-content">
+                    <!-- File content or directory listing will be displayed here -->
+                    <div class="directory-info">
+                        <h4>📁 Directory: /public/</h4>
+                        <p>Select a file or enter a path to browse the filesystem.</p>
+                    </div>
+                </div>
+
+                <!-- Path Traversal Examples -->
+                <div class="traversal-examples">
+                    <h4>🔍 Path Traversal Examples</h4>
+                    <p>Try these payloads to traverse directories:</p>
+
+                    <div class="example-buttons">
+                        <button id="example1Btn" class="cta-btn secondary">../../etc/passwd</button>
+                        <button id="example2Btn" class="cta-btn secondary">../secret/flag.txt</button>
+                        <button id="example3Btn" class="cta-btn secondary">....//....//etc/hosts</button>
+                        <button id="example4Btn" class="cta-btn secondary">/public/../../../secret/</button>
+                    </div>
+
+                    <div class="quick-actions">
+                        <button id="resetBrowserBtn" class="cta-btn secondary">Reset Browser</button>
+                        <button id="showAllExamplesBtn" class="cta-btn secondary">Show All Examples</button>
+                    </div>
+                </div>
+
+                <!-- File Information -->
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <h4>📄 File Information</h4>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <strong>File Path:</strong>
+                            <span id="infoPath"></span>
+                        </div>
+                        <div class="info-item">
+                            <strong>File Size:</strong>
+                            <span id="infoSize"></span>
+                        </div>
+                        <div class="info-item">
+                            <strong>File Type:</strong>
+                            <span id="infoType"></span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Permissions:</strong>
+                            <span id="infoPermissions"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Challenge Management Section -->
+    <div class="challenge-management" style="margin-top: 2rem; text-align: center;">
+        <div class="management-buttons">
+            <button class="cta-btn secondary" onclick="showChallengeHint('Path Traversal')">
+                💡 Подсказка
+            </button>
+            <button class="cta-btn primary" onclick="validateChallengeFlag('Path Traversal')">
+                🏴‍☠️ Проверить флаг
+            </button>
+            <button class="cta-btn secondary" onclick="showChallengeSolution('Path Traversal')">
+                🔧 Решение
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- JavaScript -->
+<script src="/js/utils.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/challenges/path-traversal.js"></script>
+<script src="/js/challenges/web-challenges.js"></script>
+</body>
+</html>

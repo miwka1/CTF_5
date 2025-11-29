@@ -10,68 +10,88 @@ import java.util.Optional;
 
 @Service
 public class ChallengeService {
-    
+
     @Autowired
     private ChallengeRepository challengeRepository;
-    
-    public List<Challenge> getAllChallenges() {
-        return challengeRepository.findAll();
+
+    // Добавить метод для инициализации заданий
+    public void initializeChallenges() {
+        // SQL Injection Challenge
+        if (!challengeRepository.findByTitle("SQL Injection Basic").isPresent()) {
+            Challenge sqliChallenge = new Challenge(
+                    "SQL Injection Basic",
+                    "Обойдите аутентификацию с помощью SQL инъекции. Найдите флаг в базе данных.",
+                    "web",
+                    100,
+                    "easy",
+                    "CTF{sql_1nj3ct10n_3asy_w1n}",
+                    "Используйте ' OR '1'='1 в поле username",
+                    "Попробуйте использовать SQL инъекцию в поле username. Пример: ' OR '1'='1"
+            );
+            challengeRepository.save(sqliChallenge);
+        }
+
+        // Authentication Bypass Challenge
+        if (!challengeRepository.findByTitle("Authentication Bypass").isPresent()) {
+            Challenge authBypassChallenge = new Challenge(
+                    "Authentication Bypass",
+                    "Обойдите механизм аутентификации и получите доступ к административной панели.",
+                    "web",
+                    120,
+                    "easy",
+                    "CTF{auth_bypass_m4st3r_2024}",
+                    "Методы обхода: 1) ' OR '1'='1 в токене, 2) admin_session_12345 в сессии, 3) Установите cookie admin=true",
+                    "Попробуйте разные методы обхода: SQL инъекция, специальные сессии, cookies администратора"
+            );
+            challengeRepository.save(authBypassChallenge);
+        }
     }
-    
-    public List<Challenge> getChallengesByCategory(String category) {
-        return challengeRepository.findByCategory(category);
-    }
-    
-    public Optional<Challenge> getChallengeById(Long id) {
-        return challengeRepository.findById(id);
-    }
-    
+
     public Optional<Challenge> getChallengeByTitle(String title) {
         return challengeRepository.findByTitle(title);
     }
-    
+
+    public boolean validateFlagByChallengeName(String challengeName, String flag) {
+        Optional<Challenge> challenge = challengeRepository.findByTitle(challengeName);
+        return challenge.isPresent() && challenge.get().getFlag().equals(flag);
+    }
+
+    // Уязвимый метод для SQL инъекции
     public boolean validateSqlInjection(String username, String password) {
-    // Нормализуем пробелы
-    String normalizedInput = (username + " " + password)
-        .replaceAll("\\s+", " ")
-        .toUpperCase()
-        .trim();
-    
-    // Проверяем различные варианты с разными пробелами
-    String[] patterns = {
-        "' OR '1'='1", "' OR '1' = '1", "' OR '1' = '1",
-        "' OR 1=1", "' OR 1 = 1", "ADMIN' --",
-        "' OR 'A'='A", "' OR ''='"
-    };
-    
-    for (String pattern : patterns) {
-        String normalizedPattern = pattern.replaceAll("\\s+", " ");
-        if (normalizedInput.contains(normalizedPattern.toUpperCase())) {
-            System.out.println("SQL Injection detected: " + pattern);
+        // Эмулируем уязвимый SQL запрос
+        String vulnerableQuery = "SELECT * FROM users WHERE username = '" + username + "' AND password = '" + password + "'";
+
+        System.out.println("Executing vulnerable query: " + vulnerableQuery);
+
+        // Проверяем различные векторы SQL инъекции
+        if (username.contains("' OR '1'='1") ||
+                username.contains("' OR 1=1--") ||
+                username.contains("' OR 'a'='a") ||
+                username.contains("admin'--")) {
             return true;
         }
+
+        // Проверяем правильные credentials (для тестирования)
+        if ("admin".equals(username) && "password123".equals(password)) {
+            return true;
+        }
+
+        return false;
     }
-    
-    return "admin".equals(username) && "admin123".equals(password);
-}
-    
-    public boolean validateFlag(Long challengeId, String userFlag) {
-        Optional<Challenge> challenge = challengeRepository.findById(challengeId);
-        return challenge.isPresent() && challenge.get().getFlag().equals(userFlag);
+
+    public List<Challenge> getChallengesByCategory(String category) {
+        return challengeRepository.findByCategory(category);
     }
-    
-    public boolean validateFlagByChallengeName(String challengeName, String userFlag) {
-        Optional<Challenge> challenge = challengeRepository.findByTitle(challengeName);
-        return challenge.isPresent() && challenge.get().getFlag().equals(userFlag);
+
+    public List<Challenge> getAllChallenges() {
+        return challengeRepository.findAll();
     }
-    
+
     public Challenge saveChallenge(Challenge challenge) {
         return challengeRepository.save(challenge);
     }
 
-    public String getChallengeHint(String challengeName) {
-    return getChallengeByTitle(challengeName)
-        .map(Challenge::getHints)
-        .orElse("Подсказка не найдена");
-}
+    public void deleteChallenge(Long id) {
+        challengeRepository.deleteById(id);
+    }
 }

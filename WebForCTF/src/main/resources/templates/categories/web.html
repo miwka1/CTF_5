@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Security Challenges - CTF Platform</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/pages/categories.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="body-web">
+<div class="background"></div>
+<div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<!-- Header -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- Main Content -->
+<div class="container">
+    <section class="category-header">
+        <h1 class="section-title">🌐 Web Security</h1>
+        <p class="category-subtitle">Web application security challenges</p>
+    </section>
+
+    <div class="challenges-grid">
+        <!-- Auth Bypass Challenge -->
+        <div class="challenge-card" onclick="window.location.href='/challenges/auth-bypass'">
+            <div class="challenge-icon">🔓</div>
+            <h3>Authentication Bypass</h3>
+            <p>Bypass authentication mechanisms using various techniques including token manipulation and session hijacking.</p>
+            <div class="challenge-meta">
+                <span class="badge easy">Easy</span>
+                <span class="points">120 pts</span>
+            </div>
+            <div class="challenge-actions">
+                <button class="cta-btn secondary small" onclick="event.stopPropagation(); showChallengeHint('Authentication Bypass')">
+                    💡 Подсказка
+                </button>
+                <button class="cta-btn primary small" onclick="event.stopPropagation(); validateChallengeFlag('Authentication Bypass')">
+                    🏴‍☠️ Флаг
+                </button>
+            </div>
+        </div>
+
+        <!-- SQL Injection Challenge -->
+        <div class="challenge-card" onclick="window.location.href='/challenges/sqli'">
+            <div class="challenge-icon">💉</div>
+            <h3>SQL Injection Basic</h3>
+            <p>Exploit SQL injection vulnerabilities to bypass login forms and extract sensitive information.</p>
+            <div class="challenge-meta">
+                <span class="badge easy">Easy</span>
+                <span class="points">100 pts</span>
+            </div>
+            <div class="challenge-actions">
+                <button class="cta-btn secondary small" onclick="event.stopPropagation(); showChallengeHint('SQL Injection Basic')">
+                    💡 Подсказка
+                </button>
+                <button class="cta-btn primary small" onclick="event.stopPropagation(); validateChallengeFlag('SQL Injection Basic')">
+                    🏴‍☠️ Флаг
+                </button>
+            </div>
+        </div>
+
+        <!-- XSS Challenge -->
+        <div class="challenge-card" onclick="window.location.href='/challenges/xss'">
+            <div class="challenge-icon">🦠</div>
+            <h3>XSS Challenge</h3>
+            <p>Execute cross-site scripting attacks to steal cookies and perform actions on behalf of users.</p>
+            <div class="challenge-meta">
+                <span class="badge medium">Medium</span>
+                <span class="points">200 pts</span>
+            </div>
+            <div class="challenge-actions">
+                <button class="cta-btn secondary small" onclick="event.stopPropagation(); showChallengeHint('XSS Challenge')">
+                    💡 Подсказка
+                </button>
+                <button class="cta-btn primary small" onclick="event.stopPropagation(); validateChallengeFlag('XSS Challenge')">
+                    🏴‍☠️ Флаг
+                </button>
+            </div>
+        </div>
+
+        <!-- CSRF Challenge -->
+        <div class="challenge-card" onclick="window.location.href='/challenges/csrf'">
+            <div class="challenge-icon">🔄</div>
+            <h3>CSRF Challenge</h3>
+            <p>Learn cross-site request forgery attacks to make users perform unintended actions.</p>
+            <div class="challenge-meta">
+                <span class="badge medium">Medium</span>
+                <span class="points">150 pts</span>
+            </div>
+            <div class="challenge-actions">
+                <button class="cta-btn secondary small" onclick="event.stopPropagation(); showChallengeHint('CSRF Challenge')">
+                    💡 Подсказка
+                </button>
+                <button class="cta-btn primary small" onclick="event.stopPropagation(); validateChallengeFlag('CSRF Challenge')">
+                    🏴‍☠️ Флаг
+                </button>
+            </div>
+        </div>
+
+        <!-- Path Traversal Challenge -->
+        <div class="challenge-card" onclick="window.location.href='/challenges/path-traversal'">
+            <div class="challenge-icon">📁</div>
+            <h3>Path Traversal</h3>
+            <p>Exploit directory traversal vulnerabilities to access restricted files and system resources.</p>
+            <div class="challenge-meta">
+                <span class="badge hard">Hard</span>
+                <span class="points">250 pts</span>
+            </div>
+            <div class="challenge-actions">
+                <button class="cta-btn secondary small" onclick="event.stopPropagation(); showChallengeHint('Path Traversal')">
+                    💡 Подсказка
+                </button>
+                <button class="cta-btn primary small" onclick="event.stopPropagation(); validateChallengeFlag('Path Traversal')">
+                    🏴‍☠️ Флаг
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Info -->
+    <div class="category-info card">
+        <h3>About Web Security Challenges</h3>
+        <p>Web security challenges focus on finding and exploiting vulnerabilities in web applications. These challenges cover:</p>
+        <ul class="info-list">
+            <li>🔓 <strong>Authentication Bypass</strong> - Circumventing login mechanisms</li>
+            <li>💉 <strong>SQL Injection</strong> - Manipulating database queries</li>
+            <li>🦠 <strong>Cross-Site Scripting (XSS)</strong> - Executing malicious scripts</li>
+            <li>🔄 <strong>CSRF</strong> - Forging unauthorized requests</li>
+            <li>📁 <strong>Path Traversal</strong> - Accessing restricted files</li>
+            <li>🔐 <strong>Session Management</strong> - Hijacking user sessions</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- JavaScript -->
+<script src="/js/utils.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/challenges/web-challenges.js"></script>
+</body>
+</html>

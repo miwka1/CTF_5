@@ -1,0 +1,157 @@
+/* СТИЛИ ДЛЯ CSRF CHALLENGE */
+.banking-interface {
+    background: rgba(26, 26, 26, 0.8);
+    border: 2px solid var(--secondary-color);
+    border-radius: 15px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 136, 255, 0.2);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.banking-interface h3 {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.banking-interface p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.transfer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.transfer-form input {
+    padding: 12px;
+    background: rgba(10, 10, 10, 0.8);
+    border: 1px solid var(--secondary-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+}
+
+.transfer-form input:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 10px rgba(0, 136, 255, 0.3);
+}
+
+.account-info {
+    background: rgba(0, 136, 255, 0.1);
+    border: 1px solid var(--secondary-color);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.account-info h4 {
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.account-balance {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    font-family: 'Roboto', sans-serif;
+}
+
+.transaction-history {
+    margin-top: 2rem;
+}
+
+.transaction-history h4 {
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.transaction-list {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    background: rgba(10, 10, 10, 0.6);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.transaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    font-family: 'Roboto', sans-serif;
+}
+
+.transaction:last-child {
+    border-bottom: none;
+}
+
+.transaction.credit {
+    color: var(--primary-color);
+}
+
+.transaction.debit {
+    color: var(--accent-color);
+}
+
+.transaction-amount {
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .banking-interface {
+        padding: 1.5rem;
+        margin: 0 1rem;
+    }
+}
+
+/* Стили для управления заданием */
+.challenge-management {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.management-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.management-buttons .cta-btn {
+    min-width: 160px;
+    padding: 0.8rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.management-buttons .cta-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Адаптивность для кнопок управления */
+@media (max-width: 768px) {
+    .management-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .management-buttons .cta-btn {
+        width: 100%;
+        max-width: 300px;
+    }
+}

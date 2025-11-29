@@ -1,0 +1,566 @@
+/* CATEGORIES PAGE STYLES */
+
+/* Category-specific accent colors */
+.body-web { --accent-color: #4ecdc4; }
+.body-pwn { --accent-color: #ff6b6b; }
+.body-crypto { --accent-color: #45b7d1; }
+
+/* Header Styles */
+.category-header {
+    text-align: center;
+    padding: 4rem 0 2rem;
+}
+
+.section-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    color: var(--primary-color); /* Fallback for non-webkit */
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+}
+
+.category-subtitle {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    margin-top: 1rem;
+}
+
+/* Challenges Grid */
+.challenges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+/* Challenge Card */
+.challenge-card {
+    background: var(--background-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    outline: none;
+}
+
+.challenge-card:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.challenge-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.challenge-card:hover::before {
+    left: 100%;
+}
+
+.challenge-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
+    border-color: var(--primary-color);
+}
+
+.challenge-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.challenge-card h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.challenge-card p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+/* Challenge Meta Info */
+.challenge-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.badge {
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.badge.easy {
+    background: rgba(76, 175, 80, 0.3);
+    color: #4caf50;
+    border: 1px solid #4caf50;
+}
+
+.badge.medium {
+    background: rgba(255, 152, 0, 0.3);
+    color: #ff9800;
+    border: 1px solid #ff9800;
+}
+
+.badge.hard {
+    background: rgba(244, 67, 54, 0.3);
+    color: #f44336;
+    border: 1px solid #f44336;
+}
+
+.points {
+    color: var(--primary-color);
+    font-weight: 600;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Challenge Actions - Slim and Long Buttons */
+.challenge-actions {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cta-btn.small {
+    padding: 0.4rem 1.2rem;
+    font-size: 0.75rem;
+    min-width: auto;
+    flex: 1;
+    max-width: none;
+    height: 32px;
+    border-radius: 6px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+}
+
+.cta-btn.small:hover {
+    transform: translateY(-2px);
+}
+
+/* Specific styles for hint and flag check buttons */
+.cta-btn.secondary.small {
+    background: rgba(255, 165, 0, 0.1);
+    border: 1px solid #ffa500;
+    color: #ffa500;
+}
+
+.cta-btn.secondary.small:hover {
+    background: rgba(255, 165, 0, 0.2);
+    border-color: #ff8c00;
+    color: #ff8c00;
+}
+
+.cta-btn.primary.small {
+    background: linear-gradient(135deg, var(--primary-color), #00cc6a);
+    border: 1px solid var(--primary-color);
+    color: #000;
+}
+
+.cta-btn.primary.small:hover {
+    background: linear-gradient(135deg, #00ff88, #00ffaa);
+    border-color: #00ff88;
+}
+
+/* Category Info */
+.category-info {
+    margin-top: 4rem;
+}
+
+.info-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
+
+.info-list li {
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.info-list li::before {
+    content: '▶';
+    color: var(--primary-color);
+    font-size: 0.8rem;
+}
+
+/* Coming Soon Section */
+.coming-soon {
+    text-align: center;
+    padding: 4rem 2rem;
+    margin: 3rem 0;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.coming-soon-icon {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.7;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+.coming-soon h2 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.coming-soon p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.feature-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-item h4 {
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+}
+
+.feature-item p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Progress Bar Styles */
+.progress-info {
+    max-width: 400px;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.progress-bar {
+    background: var(--border-color);
+    border-radius: 10px;
+    height: 8px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.progress-text {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.progress-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.progress-stat {
+    text-align: center;
+    flex: 1;
+}
+
+.progress-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    font-family: 'Orbitron', sans-serif;
+}
+
+.progress-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* ETA Message */
+.eta-message {
+    background: rgba(255, 165, 0, 0.1);
+    border: 1px solid #ffa500;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-top: 2rem;
+    display: inline-block;
+}
+
+.eta-message p {
+    margin: 0;
+    color: #ffa500;
+    font-size: 0.9rem;
+}
+
+.eta-message strong {
+    color: #ff8c00;
+}
+
+/* Responsive Design */
+
+/* Tablet Styles */
+@media (max-width: 768px) {
+    .challenges-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .category-header {
+        padding: 2rem 0 1rem;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .challenge-card {
+        padding: 1.5rem;
+    }
+
+    .challenge-actions {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    .cta-btn.small {
+        padding: 0.35rem 1rem;
+        font-size: 0.7rem;
+        height: 30px;
+    }
+
+    .coming-soon {
+        padding: 3rem 1.5rem;
+        margin: 2rem 1rem;
+    }
+
+    .coming-soon-icon {
+        font-size: 3rem;
+    }
+
+    .coming-soon h2 {
+        font-size: 1.7rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .feature-item {
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .challenge-card {
+        padding: 1rem;
+        min-height: auto;
+    }
+
+    .challenge-icon {
+        font-size: 2.5rem;
+    }
+
+    .challenge-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .challenge-actions {
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .cta-btn.small {
+        width: 100%;
+        max-width: none;
+        min-height: 44px;
+    }
+
+    .coming-soon {
+        padding: 2rem 1rem;
+    }
+
+    .coming-soon-icon {
+        font-size: 2.5rem;
+    }
+
+    .coming-soon h2 {
+        font-size: 1.5rem;
+    }
+
+    .coming-soon p {
+        font-size: 1rem;
+    }
+
+    .progress-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .progress-stat {
+        width: 100%;
+    }
+}
+
+/* High-DPI Screens Optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .challenge-card {
+        border-width: 0.5px;
+    }
+
+    .badge {
+        border-width: 0.5px;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .challenge-card,
+    .challenge-card::before,
+    .feature-item,
+    .cta-btn.small,
+    .progress-fill {
+        transition: none;
+        animation: none;
+    }
+
+    .challenge-card:hover {
+        transform: none;
+    }
+
+    .coming-soon-icon {
+        animation: none;
+    }
+}
+
+/* Dark mode optimizations */
+@media (prefers-color-scheme: dark) {
+    .challenge-card {
+        backdrop-filter: blur(15px);
+    }
+}
+
+/* Print Styles */
+@media print {
+    .challenge-card:hover,
+    .feature-item:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .cta-btn.small {
+        border: 1px solid #000 !important;
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    .progress-fill::after {
+        display: none;
+    }
+}

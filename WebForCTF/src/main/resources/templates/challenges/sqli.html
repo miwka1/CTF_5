@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Injection Challenge - CTF Platform</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/challenges/sqli.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="body-web">
+<!-- Background Elements -->
+<div class="background"></div>
+<div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<!-- Header -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- Main Content -->
+<div class="container">
+    <!-- Challenge Header -->
+    <section class="challenge-header">
+        <div class="challenge-title">
+            <div class="challenge-icon">💉</div>
+            <h1>SQL Injection Challenge</h1>
+            <p class="challenge-description">Обойдите аутентификацию с помощью SQL инъекции. Найдите флаг в базе данных.</p>
+            <div class="challenge-meta">
+                <span class="difficulty-badge easy">Easy</span>
+                <span class="points-badge">100 points</span>
+            </div>
+        </div>
+    </section>
+
+    <main class="challenge-main">
+        <div class="challenge-container">
+            <div class="login-form card">
+                <h3>🔐 Вход в систему</h3>
+                <p>Попробуйте обойти аутентификацию с помощью SQL инъекции</p>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <input type="text" id="username" name="username" placeholder="Username" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="password" name="password" placeholder="Password" required class="form-input">
+                    </div>
+                    <button type="submit" class="cta-btn primary full-width">Login</button>
+                </form>
+
+                <div id="message" class="message" style="display: none;"></div>
+
+                <!-- Hint Section -->
+                <div class="hint-section">
+                    <button class="hint-button cta-btn secondary">Show Hint</button>
+                    <div class="hint-content" id="hintContent">
+                        💡 <strong>Подсказка:</strong> Попробуйте поиграть с единицей (1), знаком равенства (=) и кавычками (') в поле username.<br>
+                        Пример: <code>' OR 1=1--</code> или <code>admin' --</code><br><br>
+                        <strong>Совет:</strong> База данных использует MySQL синтаксис. Комментарии начинаются с <code>--</code> (с пробелом) или <code>#</code>
+                    </div>
+                </div>
+
+                <!-- Flag Check Section -->
+                <div class="flag-check-section">
+                    <h4>🔍 Проверка флага</h4>
+                    <div class="form-group">
+                        <input type="text" id="flagInput" placeholder="Введите флаг для проверки" class="form-input">
+                    </div>
+                    <button type="button" id="validateFlagBtn" class="flag-check-btn cta-btn primary">
+                        <span class="btn-icon">✅</span>
+                        Проверить флаг
+                    </button>
+                    <div id="flagMessage" class="message" style="display: none;"></div>
+                </div>
+
+                <!-- Challenge Controls -->
+                <div class="challenge-controls">
+                    <button type="button" id="resetChallengeBtn" class="cta-btn secondary">Reset Challenge</button>
+                    <button type="button" id="showSolutionBtn" class="cta-btn secondary">Show Solution</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Challenge Management Section -->
+    <div class="challenge-management" style="margin-top: 2rem; text-align: center;">
+        <div class="management-buttons">
+            <button class="cta-btn secondary" onclick="showChallengeHint('SQL Injection Basic')">
+                💡 Подсказка
+            </button>
+            <button class="cta-btn primary" onclick="validateChallengeFlag('SQL Injection Basic')">
+                🏴‍☠️ Проверить флаг
+            </button>
+            <button class="cta-btn secondary" onclick="showChallengeSolution('SQL Injection Basic')">
+                🔧 Решение
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- JavaScript -->
+<script src="/js/utils.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/challenges/sqli.js"></script>
+<script src="/js/challenges/web-challenges.js"></script>
+</body>
+</html>

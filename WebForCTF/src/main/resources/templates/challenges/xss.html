@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSS Challenge - CTF Platform</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/layout.css">
+    <link rel="stylesheet" href="/css/challenges/xss.css">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="body-web">
+<!-- Background Elements -->
+<div class="background"></div>
+<div class="particles">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<!-- Header -->
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- Main Content -->
+<div class="container">
+    <!-- Challenge Header -->
+    <section class="challenge-header">
+        <div class="challenge-title">
+            <div class="challenge-icon">🦠</div>
+            <h1>XSS Challenge</h1>
+            <p class="challenge-description">Execute cross-site scripting attacks in the comment section</p>
+            <div class="challenge-meta">
+                <span class="difficulty-badge medium">Medium</span>
+                <span class="points-badge">200 points</span>
+            </div>
+        </div>
+    </section>
+
+    <main class="challenge-main">
+        <div class="challenge-content">
+            <div class="comment-section card">
+                <h3>💬 Comment Section</h3>
+                <p>Try to execute JavaScript code in the comments. The flag will appear when successful.</p>
+
+                <div class="alert-warning">
+                    ⚠️ <strong>Warning:</strong> This page is vulnerable to XSS attacks. Use responsibly for educational purposes.
+                </div>
+
+                <div class="comment-input-group">
+                    <input type="text" id="commentInput" placeholder="Enter your comment..." class="form-input">
+                    <button id="postCommentBtn" class="cta-btn primary">Post Comment</button>
+                </div>
+
+                <div id="commentsContainer" class="comments-container">
+                    <!-- Comments will be loaded here -->
+                    <div class="comment">
+                        <div class="comment-meta">
+                            <strong>admin</strong>
+                            <span>12:30</span>
+                        </div>
+                        <div class="comment-text">
+                            Welcome to the comment section! Be careful what you post here.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Challenge Controls -->
+                <div class="challenge-controls" style="margin-top: 2rem; text-align: center;">
+                    <button type="button" id="resetCommentsBtn" class="cta-btn secondary">Reset Comments</button>
+                    <button type="button" id="showExamplesBtn" class="cta-btn secondary">Show Examples</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Challenge Management Section -->
+    <div class="challenge-management" style="margin-top: 2rem; text-align: center;">
+        <div class="management-buttons">
+            <button class="cta-btn secondary" onclick="showChallengeHint('XSS Challenge')">
+                💡 Подсказка
+            </button>
+            <button class="cta-btn primary" onclick="validateChallengeFlag('XSS Challenge')">
+                🏴‍☠️ Проверить флаг
+            </button>
+            <button class="cta-btn secondary" onclick="showChallengeSolution('XSS Challenge')">
+                🔧 Решение
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- JavaScript -->
+<script src="/js/utils.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/challenges/xss.js"></script>
+<script src="/js/challenges/web-challenges.js"></script>
+</body>
+</html>
